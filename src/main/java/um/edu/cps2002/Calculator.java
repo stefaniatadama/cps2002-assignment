@@ -1,4 +1,5 @@
 package um.edu.cps2002;
+import java.lang.Math;
 
 public class Calculator {
 
@@ -18,5 +19,11 @@ public class Calculator {
         if(b == 0)
             return -999;
         else return a/b;
+    }
+
+    public int exponentiate(int a, int b){
+        if(a == 0 && b == 0)
+            return -999;
+        else return (int)Math.pow(a,b);
     }
 }

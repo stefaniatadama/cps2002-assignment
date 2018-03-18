@@ -44,6 +44,18 @@ public class CalculatorTest {
         assertEquals(-999, quotient);
     }
 
+    @Test
+    public void testExponentiate(){
+        int exp = calc.exponentiate(2, 3);
+        assertEquals(8, exp);
+    }
+
+    @Test
+    public void testExpZeroToZero(){
+        int exp = calc.exponentiate(0, 0);
+        assertEquals(-999, exp);
+    }
+
     @After
     public void teardown(){
         calc = null;
