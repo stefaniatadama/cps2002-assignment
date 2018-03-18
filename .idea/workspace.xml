@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4d1ea68d-59d2-49c4-b906-88c496d06069" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/um/edu/cps2002/CalculatorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/um/edu/cps2002/CalculatorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/um/edu/cps2002/HelloWorldTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/um/edu/cps2002/HelloWorldTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -30,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="19" selection-start-column="19" selection-end-column="19" />
+            <state relative-caret-position="220">
+              <caret line="10" column="39" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -54,8 +56,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HelloWorldTests.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/cps2002/HelloWorldTests.java">
+      <file leaf-file-name="HelloWorldTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/cps2002/HelloWorldTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state>
               <caret line="71" column="41" selection-start-line="71" selection-start-column="41" selection-end-line="71" selection-end-column="41" />
@@ -86,16 +88,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CalculatorTests.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/cps2002/CalculatorTests.java">
+      <file leaf-file-name="CalculatorTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/cps2002/CalculatorTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-18">
-              <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+            <state relative-caret-position="484">
+              <caret line="47" column="27" lean-forward="true" selection-start-line="47" selection-start-column="27" selection-end-line="47" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#221#222#0" expanded="true" />
                 <element signature="e#260#261#0" expanded="true" />
-                <element signature="e#924#925#0" expanded="true" />
                 <element signature="e#951#952#0" expanded="true" />
               </folding>
             </state>
@@ -123,6 +124,7 @@
         <option value="$PROJECT_DIR$/src/test/java/um/edu/cps2002/HelloWorldTests.java" />
         <option value="$PROJECT_DIR$/src/test/java/um/edu/cps2002/CalculatorTests.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/test/java/um/edu/cps2002/CalculatorTest.java" />
       </list>
     </option>
   </component>
@@ -246,7 +248,7 @@
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
-    <configuration name="CalculatorTests and 1 more" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CalculatorTest and 1 more" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="cps2002unittest" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -262,11 +264,11 @@
         <value defaultName="singleModule" />
       </option>
       <patterns>
-        <pattern testClass="um.edu.cps2002.CalculatorTests" />
-        <pattern testClass="um.edu.cps2002.HelloWorldTests" />
+        <pattern testClass="um.edu.cps2002.CalculatorTest" />
+        <pattern testClass="um.edu.cps2002.HelloWorldTest" />
       </patterns>
     </configuration>
-    <configuration name="CalculatorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CalculatorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="cps2002unittest" />
       <extension name="coverage">
         <pattern>
@@ -277,7 +279,7 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="um.edu.cps2002" />
-      <option name="MAIN_CLASS_NAME" value="um.edu.cps2002.CalculatorTests" />
+      <option name="MAIN_CLASS_NAME" value="um.edu.cps2002.CalculatorTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -289,7 +291,7 @@
       </option>
       <patterns />
     </configuration>
-    <configuration name="HelloWorldTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="HelloWorldTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="cps2002unittest" />
       <extension name="coverage">
         <pattern>
@@ -300,7 +302,7 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="um.edu.cps2002" />
-      <option name="MAIN_CLASS_NAME" value="um.edu.cps2002.HelloWorldTests" />
+      <option name="MAIN_CLASS_NAME" value="um.edu.cps2002.HelloWorldTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -390,13 +392,13 @@
       <item itemvalue="Application.HelloWorld" />
       <item itemvalue="JUnit.HelloWorldTests" />
       <item itemvalue="JUnit.CalculatorTests" />
-      <item itemvalue="JUnit.CalculatorTests and 1 more" />
+      <item itemvalue="JUnit.CalculatorTest and 1 more" />
       <item itemvalue="JUnit.um.edu.cps2002 in cps2002unittest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.um.edu.cps2002 in cps2002unittest" />
-        <item itemvalue="JUnit.CalculatorTests and 1 more" />
+        <item itemvalue="JUnit.CalculatorTest and 1 more" />
         <item itemvalue="JUnit.CalculatorTests" />
         <item itemvalue="JUnit.HelloWorldTests" />
         <item itemvalue="Application.HelloWorld" />
@@ -413,7 +415,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1519111357150</updated>
-      <workItem from="1521368471323" duration="951000" />
+      <workItem from="1521368471323" duration="1825000" />
     </task>
     <servers />
   </component>
@@ -450,7 +452,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="951000" />
+    <option name="totallyTimeSpent" value="1825000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="60" y="-4" width="1861" height="1085" extended-state="6" />
@@ -466,11 +468,11 @@
       <window_info anchor="right" id="Maven Projects" order="1" />
       <window_info anchor="bottom" id="Version Control" order="2" />
       <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.22540984" />
-      <window_info active="true" anchor="right" id="Coverage" order="3" side_tool="true" visible="true" weight="0.25551373" />
+      <window_info anchor="right" id="Coverage" order="3" side_tool="true" visible="true" weight="0.25551373" />
       <window_info anchor="bottom" id="Terminal" order="3" weight="0.3291536" />
       <window_info id="Capture Tool" order="0" />
       <window_info id="Designer" order="1" />
-      <window_info content_ui="combo" id="Project" order="4" visible="true" weight="0.1753631" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.1753631" />
       <window_info anchor="right" id="Database" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
@@ -513,7 +515,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/cps2002/HelloWorldTests.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/cps2002/HelloWorldTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1065">
           <caret line="71" column="41" selection-start-line="71" selection-start-column="41" selection-end-line="71" selection-end-column="41" />
@@ -541,7 +543,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/cps2002/CalculatorTests.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/cps2002/CalculatorTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="26" column="5" lean-forward="true" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
@@ -549,7 +551,6 @@
             <element signature="imports" expanded="true" />
             <element signature="e#221#222#0" expanded="true" />
             <element signature="e#260#261#0" expanded="true" />
-            <element signature="e#924#925#0" expanded="true" />
             <element signature="e#951#952#0" expanded="true" />
           </folding>
         </state>
@@ -589,7 +590,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/cps2002/CalculatorTests.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/cps2002/CalculatorTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="851">
           <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
@@ -597,7 +598,6 @@
             <element signature="imports" expanded="true" />
             <element signature="e#221#222#0" expanded="true" />
             <element signature="e#260#261#0" expanded="true" />
-            <element signature="e#924#925#0" expanded="true" />
             <element signature="e#951#952#0" expanded="true" />
           </folding>
         </state>
@@ -631,21 +631,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/cps2002/CalculatorTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-18">
-          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#221#222#0" expanded="true" />
-            <element signature="e#260#261#0" expanded="true" />
-            <element signature="e#924#925#0" expanded="true" />
-            <element signature="e#951#952#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/cps2002/HelloWorldTests.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/cps2002/HelloWorldTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret line="71" column="41" selection-start-line="71" selection-start-column="41" selection-end-line="71" selection-end-column="41" />
@@ -661,8 +647,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="19" selection-end-column="19" />
+        <state relative-caret-position="220">
+          <caret line="10" column="39" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/cps2002/CalculatorTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="47" column="27" lean-forward="true" selection-start-line="47" selection-start-column="27" selection-end-line="47" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#221#222#0" expanded="true" />
+            <element signature="e#260#261#0" expanded="true" />
+            <element signature="e#951#952#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

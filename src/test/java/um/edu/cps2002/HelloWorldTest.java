@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class HelloWorldTests {
+public class HelloWorldTest {
 
     HelloWorld helloWorld;
 
