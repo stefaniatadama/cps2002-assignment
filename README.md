@@ -1,2 +1,2 @@
-# cps2002-assignment
-Software Engineering Assignment - Luke Collins &amp; Stefania Damato
+# CPS2002: Software Engineering - Assignment
+Luke Collins &amp; Stefania Damato
