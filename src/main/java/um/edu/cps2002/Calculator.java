@@ -26,4 +26,11 @@ public class Calculator {
             return -999;
         else return (int)Math.pow(a,b);
     }
+
+    public int choose(int n, int k){
+        if(k == 0 || k == n){
+            return 1;
+        }
+        else return (choose(n-1, k-1) + choose(n-1, k));
+    }
 }

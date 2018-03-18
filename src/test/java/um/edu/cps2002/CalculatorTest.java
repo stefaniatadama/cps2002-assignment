@@ -56,6 +56,18 @@ public class CalculatorTest {
         assertEquals(-999, exp);
     }
 
+    @Test
+    public void testChooseBaseCase(){
+        int choose = calc.choose(5, 0);
+        assertEquals(1, choose);
+    }
+
+    @Test
+    public void testChooseRecursion(){
+        int choose = calc.choose(7, 2);
+        assertEquals(21, choose);
+    }
+
     @After
     public void teardown(){
         calc = null;
