@@ -79,6 +79,26 @@ public class HelloWorldTest {
 
     }
 
+    @Test
+    public void testFibonacciBaseCase(){
+
+        //Exercise
+        int second = helloWorld.fibonacci(1);
+
+        //Verify
+        assertEquals(1, second);
+    }
+
+    @Test
+    public void testFibonacciRecursion(){
+
+        //Exercise
+        int fib10 = helloWorld.fibonacci(10);
+
+        //Verify
+        assertEquals(55, fib10);
+    }
+
     @After
     public void teardown(){
         helloWorld = null;
