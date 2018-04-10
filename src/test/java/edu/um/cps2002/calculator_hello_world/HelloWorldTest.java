@@ -1,4 +1,4 @@
-package edu.um.cps2002.assignment_part_1;
+package edu.um.cps2002.calculator_hello_world;
 
 import org.junit.After;
 import org.junit.Before;
