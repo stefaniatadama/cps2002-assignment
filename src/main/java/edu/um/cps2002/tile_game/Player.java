@@ -2,7 +2,7 @@ package edu.um.cps2002.tile_game;
 
 public class Player {
 
-    Position position;
+    int x, y;
 
     Player(){
     }
@@ -11,8 +11,10 @@ public class Player {
 
     }
 
-    boolean setPosition(Position p){
-        this.position = p;
+    boolean setPosition(int x, int y){
+        this.x = x;
+        this.y = y;
+        return true;
     }
 
 }
