@@ -1,2 +1,6 @@
-um/edu/cps2002/CalculatorTest.class
-um/edu/cps2002/HelloWorldTest.class
+edu/um/cps2002/tile_game/GameTest.class
+edu/um/cps2002/tile_game/MapTest.class
+edu/um/cps2002/calculator_hello_world/HelloWorldTest.class
+edu/um/cps2002/tile_game/GameMapTest.class
+edu/um/cps2002/tile_game/PlayerMapTest.class
+edu/um/cps2002/calculator_hello_world/CalculatorTest.class

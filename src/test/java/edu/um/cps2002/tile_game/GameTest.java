@@ -1,9 +1,15 @@
 package edu.um.cps2002.tile_game;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.*;
+
 import static org.junit.Assert.*;
+
+import static org.hamcrest.CoreMatchers.containsString;
 
 public class GameTest {
 
@@ -13,6 +19,7 @@ public class GameTest {
     public void setup(){
         game = new Game();
     }
+
 
     // Test various combinations of players/map sizes
     @Test
@@ -51,6 +58,57 @@ public class GameTest {
         assertEquals(true, ans);
     }
 
+    @Test
+    public void testIncorrectInput(){
+
+        // 9 players, map size 30, then 8 players
+        String input = "9\n 30\n 8\n 30\n";
+
+        // Change input stream to 'input' above
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        // Set output stream to output array stream
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+
+        game.start();
+
+        // Check that error message appears
+        assertThat(output.toString(),
+                CoreMatchers.containsString("Incorrect number of players or map size entered. Please try again."));
+
+        // Reset Buffers
+        System.setIn(System.in);
+        System.setOut(System.out);
+    }
+
+    @Test
+    public void testStartPlayerOnGrassTile(){
+
+        // 4 players, map size 10
+        String input = "4\n 10\n";
+
+        // Change input stream to 'input' above
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        game.start();
+
+        int x, y;
+
+        // For each player, check that player position is grass
+        for (int i = 0; i < 4; i++){
+            x = game.getPlayer(i).getX();
+            y = game.getPlayer(i).getY();
+            assertEquals('g', game.getMap().getTileType(x,y));
+        }
+
+        // Reset Buffer
+        System.setIn(System.in);
+    }
+
+    // Test
     @After
     public void teardown(){
         game = null;

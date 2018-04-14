@@ -1,0 +1,6 @@
+</table>
+   </div>
+
+   <div class = "footer">Luke Collins and Stefania Damato, B.Sc. Mathematics &amp; Computer Science, 2018</div>
+
+</body>
