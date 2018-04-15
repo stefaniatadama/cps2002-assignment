@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class Player {
 
-    private int x, y;
+    private int x, y, startX, startY;
     private PlayerMap playerMapCopy;
 
 
@@ -18,12 +18,10 @@ public class Player {
 
         // Place player in position
         this.x = startX;
+        this.startX = startX;
         this.y = startY;
+        this.startY = startY;
         this.playerMapCopy.setTile(startX, startY, 'g');
-    }
-
-    void move(char direction){
-
     }
 
     public int getX(){
@@ -34,13 +32,59 @@ public class Player {
         return y;
     }
 
-    boolean setPosition(int x, int y){
-        this.x = x;
-        this.y = y;
-        return true;
+    PlayerMap getPlayerMapCopy(){
+        return playerMapCopy;
     }
 
-    String generateHTML() throws IOException {
+    public boolean moveAllowed(char move){
+        switch(move){
+            case 'u':
+                return x != 0;
+            case 'd':
+                return x != playerMapCopy.getSize() - 1;
+            case 'l':
+                return y != 0;
+            case 'r':
+                return y != playerMapCopy.getSize() - 1;
+            default:
+                return false;
+        }
+    }
+
+    public void move(char move){
+        switch(move){
+            case 'u':
+                x--;
+                break;
+            case 'd':
+                x++;
+                break;
+            case 'l':
+                y--;
+                break;
+            case 'r':
+                y++;
+                break;
+            default:
+                //error
+                break;
+        }
+    }
+
+    public void returnToStart(){
+        this.x = startX;
+        this.y = startY;
+    }
+
+    public void updateMap(int x, int y, char type){
+        if(playerMapCopy.getTileType(x,y) == '?')
+            playerMapCopy.setTile(x, y, type);
+        else if (playerMapCopy.getTileType(x,y) != type)
+            System.out.println("hassle");
+            //error
+    }
+
+    String generateHTML(int playerNo) throws IOException {
 
         FileReader fr;
         BufferedReader br;
@@ -52,7 +96,7 @@ public class Player {
                 "\n" +
                 "<head>\n" +
                 "\n" +
-                "   <title>CPS2002: Software Engineering &mdash; Tile Game</title>\n" +
+                "   <title>CPS2002: Software Engineering &mdash; Tile Game &mdash; Player " + playerNo + "</title>\n" +
                 "\n" +
                 "   <link href=\"https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto\" rel=\"stylesheet\">\n" +
                 "\n" +
@@ -122,7 +166,7 @@ public class Player {
                 "\n" +
                 "<body>\n" +
                 "\n" +
-                "   <h1><a href=\"https://www.um.edu.mt/courses/studyunit/CPS2002\" target=\"_blank\">CPS2002: Software Engineering</a> &mdash; Tile Game </h1>\n" +
+                "   <h1><a href=\"https://www.um.edu.mt/courses/studyunit/CPS2002\" target=\"_blank\">CPS2002: Software Engineering</a> &mdash; Tile Game &mdash; Player " + playerNo +  "</h1>\n" +
                 "\n" +
                 "   <div class = \"map\">\n" +
                 "      <table>\n";

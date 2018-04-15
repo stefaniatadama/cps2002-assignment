@@ -22,7 +22,7 @@ public class PlayerMapTest {
         playermap.generate();
 
         playermap.setTile(0, 5, 'w');
-        assertEquals('w', playermap.getPlayerTileType(0,5));
+        assertEquals('w', playermap.getTileType(0,5));
     }
 
     @Test
@@ -30,7 +30,7 @@ public class PlayerMapTest {
         playermap.generate();
 
         playermap.setTile(1,6, 'a');
-        assertEquals('?', playermap.getPlayerTileType(1,6));
+        assertEquals('?', playermap.getTileType(1,6));
     }
 
 

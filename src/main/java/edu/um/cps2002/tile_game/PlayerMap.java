@@ -9,29 +9,8 @@ public class PlayerMap extends Map {
     }
 
     void generate(){
-        tiles = new char[size][size];       // Initialise array
-
         for(char[] row : tiles)             // All tiles are grass tiles by default
             Arrays.fill(row, '?');
-    }
-
-    void setTile(int x, int y, char type){
-        switch(type){
-            case '?':
-            case 'g':
-            case 'w':
-            case 't':
-                tiles[x][y] = type;
-                break;
-
-            default:
-                //error
-                break;
-        }
-    }
-
-    char getPlayerTileType(int x, int y){
-        return tiles[x][y];
     }
 
     String htmlMapTable(int currentPlayerX, int currentPlayerY){
@@ -59,11 +38,10 @@ public class PlayerMap extends Map {
                     default:
                         //error
                 }
-
-                if (i == currentPlayerX && j == currentPlayerY)
-                    table += "&#x1F468;";
-                else if (tiles[i][j] == 't')
+                if (tiles[i][j] == 't')
                     table += "&#x1F3C1;";
+                else if (i == currentPlayerX && j == currentPlayerY)
+                    table += "&#x1F468;";
                 else
                     table += "&ensp;";
 

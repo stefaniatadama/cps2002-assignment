@@ -15,6 +15,16 @@ public class Launcher {
 
         // Start game (ask user for details)
         g.start();
+
+        // Generate first map
+        g.generateHTMLFiles();
+
+        // Gameplay loop
+        while(g.gameplayRound()){
+            g.generateHTMLFiles();
+        }
+
+        // Generate final map
         g.generateHTMLFiles();
     }
 }

@@ -7,6 +7,7 @@ public abstract class Map {
 
     public Map(int size){
         this.size = size;
+        this.tiles = new char[size][size];
     }
 
     abstract void generate();
@@ -17,5 +18,20 @@ public abstract class Map {
 
     final public char getTileType(int x, int y){
         return tiles[x][y];
+    }
+
+    final public void setTile(int x, int y, char type){
+        switch(type){
+            case '?':
+            case 'g':
+            case 'w':
+            case 't':
+                tiles[x][y] = type;
+                break;
+
+            default:
+                //error
+                break;
+        }
     }
 }

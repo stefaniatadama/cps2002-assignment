@@ -12,8 +12,6 @@ public class GameMap extends Map {
 
         int numberOfWaterTiles = (size * size * 2)/25;     // To keep the 25 : 2 ratio from figure 1
 
-        tiles = new char[size][size];       // Initialise array
-
         for(char[] row : tiles)             // All tiles are grass tiles by default
             Arrays.fill(row, 'g');
 
