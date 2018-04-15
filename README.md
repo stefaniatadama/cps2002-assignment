@@ -9,6 +9,7 @@ A precompiled JAR file is present in the root directory, so all that is required
 Clone the repository, then open a terminal (or _command line_ on Windows) and navigate to the directory where the repository files are present. Then run the command 
 
     java -cp game.jar edu.um.cps2002.tile_game.Launcher 
+
 which will present you with the console interface for the game. Enter the number of players and desired size of the map when prompted. Then you should notice that an HTML file has been generated for each player (`map_player_1.html`, `map_player_2.html`, etc) in the repository folder. Open these in a browser. After each round is played in the console, refresh the maps in the browser (hit F5) to see where the players have landed. The first player to discover the treasure tile is the winner.
 
 ## Compilation
