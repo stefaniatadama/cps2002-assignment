@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: edu.um.cps2002.calculator_hello_world.CalculatorTest
+-------------------------------------------------------------------------------
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec - in edu.um.cps2002.calculator_hello_world.CalculatorTest

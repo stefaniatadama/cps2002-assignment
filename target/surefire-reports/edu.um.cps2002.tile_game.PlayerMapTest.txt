@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: edu.um.cps2002.tile_game.PlayerMapTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in edu.um.cps2002.tile_game.PlayerMapTest
