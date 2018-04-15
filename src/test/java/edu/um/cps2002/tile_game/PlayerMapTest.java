@@ -6,17 +6,41 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 
+
+/**
+ * The {@code PlayerMapTest} class tests the functionality of
+ * methods in the {@link PlayerMap} class.
+ */
 public class PlayerMapTest {
 
+
+    /**
+     * Attribute {@code size} was used as a fixed size of
+     * the map for the tests.
+     */
     int size = 35;
 
+
+    /**
+     * {@link PlayerMap} object used for testing.
+     */
     PlayerMap playermap, playermap2;
 
+
+    /**
+     * This method creates a {@link PlayerMap} instance for
+     * future tests.
+     */
     @Before
     public void setup(){
         playermap = new PlayerMap(size);
     }
 
+
+    /**
+     * Tests {@link Map#setTile(int, int, char)} by ensuring
+     * tiles are set to the specified type.
+     */
     @Test
     public void testSetTileWater(){
         playermap.generate();
@@ -25,12 +49,23 @@ public class PlayerMapTest {
         assertEquals('w', playermap.getTileType(0,5));
     }
 
+
+    /**
+     * Tests {@link Map#setTile(int, int, char)} with an invalid
+     * tile type 'a'. This throws an exception.
+     */
     @Test(expected = IllegalStateException.class)
     public void testSetTileInvalid(){
         playermap.generate();
         playermap.setTile(1,6, 'a');
     }
 
+
+    /**
+     * Tests {@link PlayerMap#htmlMapTable(int, int)} by setting
+     * the types of a number of tiles and ensuring that the HTML
+     * is generated appropriately.
+     */
     @Test
     public void testHTMLTable(){
         playermap2 = new PlayerMap(2);
@@ -51,6 +86,10 @@ public class PlayerMapTest {
                 "</tr>\n", table);
     }
 
+
+    /**
+     * This method frees memory after all tests are completed.
+     */
     @After
     public void teardown(){
         playermap = null;
