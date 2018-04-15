@@ -2,8 +2,32 @@ package edu.um.cps2002.tile_game;
 
 import java.io.IOException;
 
+/**
+ * The {@code Launcher} class contains the main method, which creates an
+ * instance of {@link Game} and loops through gameplay rounds until someone
+ * wins.
+ *
+ * @author Luke Collins &amp; Stefania Damato
+ *
+ */
 public class Launcher {
 
+    /**
+     * The default constructor.
+     */
+    Launcher(){
+
+    }
+
+
+    /**
+     * The main method creates a {@link Game} instance, runs {@link Game#start()}
+     * and loops through {@link Game#gameplayRound()}, each time executing
+     * {@link Game#generateHTMLFiles()} to update the maps for each player.
+     *
+     * @param args Not used
+     * @throws IOException Should writing of HTML files fail.
+     */
     public static void main(String[] args) throws IOException {
 
         // Game Instance

@@ -1,15 +1,63 @@
 package edu.um.cps2002.tile_game;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
+/**
+ * The {@code Player} class contains a copy of the game map from the player's
+ * perspective, the location of the player on the map, various methods
+ * which allow the player to move around the map and a method to generate
+ * the HTML code of the player's map.
+ *
+ * @author Luke Collins &amp; Stefania Damato
+ *
+ */
 public class Player {
 
-    private int x, y, startX, startY;
+    /**
+     * Player's current row on the game map.
+     */
+    private int x;
+
+
+    /**
+     * Player's current column on the game map.
+     */
+    private int y;
+
+
+    /**
+     * Player's initial row on the game map.
+     */
+    private int startX;
+
+
+    /**
+     * Player's initial column on the game map.
+     */
+    private int startY;
+
+
+    /**
+     * Player's copy of the game map, with some unknown tiles (set to {@code ?}).
+     */
     private PlayerMap playerMapCopy;
 
 
+    /**
+     * The default constructor.
+     */
+    Player(){
+
+    }
+
+
+    /**
+     * This method populates the {@link Player#playerMapCopy} with {@code ?}
+     * characters, apart from the player's initial position which must be a
+     * grass ({@code g}) tile.
+     *
+     * @param mapSize Size of the game map.
+     * @param startX Player's initial row on the game map.
+     * @param startY Payer's initial column on the game map.
+     */
     void setPlayerMapStart(int mapSize, int startX, int startY){
 
         // Generate Player's Copy of Map
@@ -24,19 +72,49 @@ public class Player {
         this.playerMapCopy.setTile(startX, startY, 'g');
     }
 
+
+    /**
+     * Simple getter, returns player's current row in the map.
+     *
+     * @return Player's current row.
+     */
     public int getX(){
         return x;
     }
 
+
+    /**
+     * Simple getter, returns player's current column in the map.
+     *
+     * @return Player's current column.
+     */
     public int getY(){
         return y;
     }
 
+
+    /**
+     * Simple getter, returns player's current copy of the map.
+     *
+     * @return Player's copy of the map, {@link Player#playerMapCopy}.
+     */
     PlayerMap getPlayerMapCopy(){
         return playerMapCopy;
     }
 
+    /**
+     * This method examines the player's current position and determines whether
+     * or not it is possible to move in a certain direction, ensuring that the
+     * player does not move out of the map.
+     *
+     * @param move A direction character, one of {@code u} (up), {@code d} (down),
+     *             {@code l} (left) or {@code r} (right).
+     *
+     * @return {@code true} if the move is admissible, {@code false} otherwise.
+     */
     public boolean moveAllowed(char move){
+
+        // Check if player is on the edges of the map
         switch(move){
             case 'u':
                 return x != 0;
@@ -51,7 +129,19 @@ public class Player {
         }
     }
 
-    public void move(char move){
+
+    /**
+     * This method moves the player (updates the attributes {@link Player#x} and
+     * {@link Player#y}).
+     *
+     * @param move A direction character, one of {@code u} (up), {@code d} (down),
+     *             {@code l} (left) or {@code r} (right).
+     *
+     * @throws IllegalArgumentException Should the argument {@code move} not equal
+     * one of {@code u} (up), {@code d} (down), {@code l} (left) or {@code r}
+     * (right).
+     */
+    public void move(char move) throws IllegalArgumentException{
         switch(move){
             case 'u':
                 x--;
@@ -66,28 +156,55 @@ public class Player {
                 y++;
                 break;
             default:
-                //error
-                break;
+                throw new IllegalArgumentException("Invalid move encountered (not U/D/L/R)");
         }
     }
 
+
+    /**
+     * This method moves the player back to their starting position.
+     */
     public void returnToStart(){
         this.x = startX;
         this.y = startY;
     }
 
-    public void updateMap(int x, int y, char type){
+
+    /**
+     * This function updates the player's copy of the map, effectively
+     * 'discovering' new tiles and replacing the {@code ?} entries in the
+     * {@link Player#playerMapCopy} with one of {@code g} (grass), {@code w}
+     * (water), or {@code t} (treasure).
+     *
+     * @param x The row of the discovered tile.
+     * @param y The column of the discovered tile.
+     * @param type The discovered tile type, one of {@code g} (grass),
+     * {@code w} (water), or {@code t} (treasure).
+     *
+     * @throws IllegalStateException Should the discovered tile already have
+     * been discovered and type conflicts with its previous value.
+     */
+    public void updateMap(int x, int y, char type) throws IllegalStateException{
+
+        // If the tile was undiscovered, set it to type
         if(playerMapCopy.getTileType(x,y) == '?')
             playerMapCopy.setTile(x, y, type);
+
+        // Otherwise make sure it agrees with what we have
         else if (playerMapCopy.getTileType(x,y) != type)
-            System.out.println("hassle");
-            //error
+            throw new IllegalStateException("Player map copy conflicts with game map.");
     }
 
-    String generateHTML(int playerNo) throws IOException {
 
-        FileReader fr;
-        BufferedReader br;
+    /**
+     * This method generates an HTML file for the current player, using the
+     * {@link PlayerMap#htmlMapTable(int, int)} function to generate an HTML
+     * table which represents {@link Player#playerMapCopy}.
+     *
+     * @param playerNo Which player this is (player 1, player 2, etc.).
+     * @return The HTML file as a {@code String}.
+     */
+    String generateHTML(int playerNo) {
 
         // HTML Preamble
         String pre = "<!DOCTYPE HTML>\n" +
@@ -172,6 +289,7 @@ public class Player {
                 "      <table>\n";
 
         // Generate table for player's map
+
         String table = playerMapCopy.htmlMapTable(x, y);
 
         // HTML End Stuff
@@ -184,5 +302,4 @@ public class Player {
 
         return pre + table + post;
     }
-
 }

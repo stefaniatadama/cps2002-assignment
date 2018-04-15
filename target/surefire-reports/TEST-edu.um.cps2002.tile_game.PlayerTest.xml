@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="edu.um.cps2002.calculator_hello_world.CalculatorTest" time="0.001" tests="9" errors="0" skipped="0" failures="0">
+<testsuite name="edu.um.cps2002.tile_game.PlayerTest" time="0" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/amd64"/>
@@ -59,13 +59,10 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="testDivideByZero" classname="edu.um.cps2002.calculator_hello_world.CalculatorTest" time="0"/>
-  <testcase name="testAdd" classname="edu.um.cps2002.calculator_hello_world.CalculatorTest" time="0"/>
-  <testcase name="testSubtract" classname="edu.um.cps2002.calculator_hello_world.CalculatorTest" time="0"/>
-  <testcase name="testChooseBaseCase" classname="edu.um.cps2002.calculator_hello_world.CalculatorTest" time="0"/>
-  <testcase name="testChooseRecursion" classname="edu.um.cps2002.calculator_hello_world.CalculatorTest" time="0"/>
-  <testcase name="testDivide" classname="edu.um.cps2002.calculator_hello_world.CalculatorTest" time="0"/>
-  <testcase name="testMultiply" classname="edu.um.cps2002.calculator_hello_world.CalculatorTest" time="0"/>
-  <testcase name="testExpZeroToZero" classname="edu.um.cps2002.calculator_hello_world.CalculatorTest" time="0"/>
-  <testcase name="testExponentiate" classname="edu.um.cps2002.calculator_hello_world.CalculatorTest" time="0.001"/>
+  <testcase name="testMoveAllowed" classname="edu.um.cps2002.tile_game.PlayerTest" time="0"/>
+  <testcase name="testUpdateMap" classname="edu.um.cps2002.tile_game.PlayerTest" time="0"/>
+  <testcase name="testMove" classname="edu.um.cps2002.tile_game.PlayerTest" time="0"/>
+  <testcase name="testPlayerMapStart" classname="edu.um.cps2002.tile_game.PlayerTest" time="0"/>
+  <testcase name="testUpdateMapInvalid" classname="edu.um.cps2002.tile_game.PlayerTest" time="0"/>
+  <testcase name="testMoveInvalid" classname="edu.um.cps2002.tile_game.PlayerTest" time="0"/>
 </testsuite>

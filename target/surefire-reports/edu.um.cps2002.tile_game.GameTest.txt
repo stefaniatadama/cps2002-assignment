@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: edu.um.cps2002.tile_game.GameTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 sec - in edu.um.cps2002.tile_game.GameTest
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.049 sec - in edu.um.cps2002.tile_game.GameTest
