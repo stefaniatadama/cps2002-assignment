@@ -18,4 +18,4 @@ The program is built using [Maven](https://maven.apache.org/), so if you wish to
     sudo  apt-get install maven
 
 ## Documentation 
-Detailed documentation of the code can be found in the `javadocs` directory. Navigate to this directory and open `index.html` for details about the classes/methods involved.
+Detailed documentation of the code can be found in the `javadocs` directory. Visit [this webpage](https://cdn.rawgit.com/stefaniatadama/cps2002-assignment/fdc3820c/javadocs/index.html) to view the documentation in your browser or pull the repository, navigate to the `javadocs` directory and open `index.html` for details about the classes/methods involved.
