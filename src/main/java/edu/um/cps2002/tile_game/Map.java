@@ -21,7 +21,6 @@ public abstract class Map {
      */
     char[][] tiles;
 
-
     /**
      * Constructor which initialises the array and sets the attribute {@link Map#size}
      * to the parameter {@code size}.
