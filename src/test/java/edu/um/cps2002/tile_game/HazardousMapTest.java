@@ -5,13 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
-
-/**
- * The {@code GameMapTest} class tests the functionality of
- * methods in the {@link GameMap} class.
- */
-public class GameMapTest {
+public class HazardousMapTest {
 
 
     /**
@@ -22,34 +18,34 @@ public class GameMapTest {
 
 
     /**
-     * {@link GameMap} object used for testing.
+     * {@link HazardousMap} object used for testing.
      */
-    GameMap gamemap;
+    HazardousMap hazardousmap;
 
 
     /**
-     * This method creates a {@link GameMap} instance for future
+     * This method creates a {@link HazardousMap} instance for future
      * tests.
      */
     @Before
     public void setup(){
-        gamemap = new GameMap(size);
+        hazardousmap = new HazardousMap(size);
     }
 
 
     /**
-     * Tests {@link GameMap#generate()} by checking that there
+     * Tests {@link HazardousMap#generate()} by checking that there
      * is only one treasure tile in the map.
      */
     @Test
     public void testOnlyOneTreasureTile(){
-        gamemap.generate();
+        hazardousmap.generate();
 
         int no_of_treasure_tiles = 0;
 
         for(int i=0; i<size; i++){
             for(int j=0; j<size; j++){
-                if(gamemap.getTileType(i,j) == 't')
+                if(hazardousmap.getTileType(i,j) == 't')
                     no_of_treasure_tiles++;
             }
         }
@@ -59,27 +55,26 @@ public class GameMapTest {
 
 
     /**
-     * Tests {@link GameMap#generate()} by checking that the
-     * grass:water ratio of tiles in the map is 25:2.
+     * Tests {@link HazardousMap#generate()} by checking that the
+     * number of water tiles is at most 10%.
      */
     @Test
-    public void testWaterGrassTileRatio(){
-        gamemap.generate();
+    public void testWaterTileRatio(){
+        hazardousmap.generate();
 
-        int no_of_grass_tiles = 0;
         int no_of_water_tiles = 0;
 
         for(int i=0; i<size; i++){
             for(int j=0; j<size; j++){
-                if(gamemap.getTileType(i,j) == 'g')
-                    no_of_grass_tiles++;
-                else if(gamemap.getTileType(i,j) == 'w')
+                if(hazardousmap.getTileType(i,j) == 'w')
                     no_of_water_tiles++;
             }
         }
 
-        double ratio = no_of_grass_tiles/no_of_water_tiles;
-        assertEquals(25/2, ratio, 1);
+        double ratio = (no_of_water_tiles*100)/(size*size);
+        System.out.println(ratio);
+        // We allow 24 due to the int conversion when calculating the number of water tiles in HazardousMap
+        assertTrue(24 <= ratio && ratio <= 35);
     }
 
 
@@ -88,6 +83,6 @@ public class GameMapTest {
      */
     @After
     public void teardown(){
-        gamemap = null;
+        hazardousmap = null;
     }
 }

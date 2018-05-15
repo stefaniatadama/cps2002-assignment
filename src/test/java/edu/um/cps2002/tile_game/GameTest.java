@@ -112,8 +112,8 @@ public class GameTest {
      */
     @Test
     public void testIncorrectInput(){
-        // 9 players, map size 30, then 8 players, map size 30
-        String input = "9\n 30\n 8\n 30\n";
+        // 9 players, map size 30, then 8 players, map size 30, safe map
+        String input = "9\n 30\n 8\n 30\nS\n";
 
         // Change input stream
         InputStream in = new ByteArrayInputStream(input.getBytes());
@@ -141,8 +141,8 @@ public class GameTest {
      */
     @Test
     public void testStartPlayerOnGrassTile(){
-        // 4 players, map size 10
-        String input = "4\n 10\n";
+        // 4 players, map size 10, hazardous map
+        String input = "4\n 10\nH\n";
 
         // Change input stream
         InputStream in = new ByteArrayInputStream(input.getBytes());
@@ -173,7 +173,7 @@ public class GameTest {
     public void testGamePlayRound(){
         int size = 10;
 
-        GameMap map = new GameMap(size);
+        HazardousMap map = new HazardousMap(size);
 
         for(int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -218,7 +218,7 @@ public class GameTest {
     public void testGamePlayRoundInvalidMove(){
         int size = 20;
 
-        GameMap map = new GameMap(size);
+        SafeMap map = new SafeMap(size);
 
         for(int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -267,7 +267,7 @@ public class GameTest {
     public void testGamePlayRoundWater(){
         int size = 10;
 
-        GameMap map = new GameMap(size);
+        HazardousMap map = new HazardousMap(size);
 
         for(int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -313,7 +313,7 @@ public class GameTest {
     public void testGamePlayRoundWinner(){
         int size = 10;
 
-        GameMap map = new GameMap(size);
+        SafeMap map = new SafeMap(size);
 
         for(int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
