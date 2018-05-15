@@ -109,10 +109,11 @@ public class Game {
             firstLoop = false;
         }
 
+        sc.nextLine();
         // Ask user for map type
         while(!mapType.equals("S") && !mapType.equals("H")){
             System.out.print("Enter map type (S/H): ");
-            mapType = sc.nextLine();
+            mapType = sc.next();
         }
 
         // Initialise map creator

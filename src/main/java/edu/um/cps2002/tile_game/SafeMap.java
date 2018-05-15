@@ -2,12 +2,29 @@ package edu.um.cps2002.tile_game;
 
 import java.util.Arrays;
 
+/**
+ * The {@code SafeMap} class is a {@link GameMap} object, with
+ * the implementation of the method {@link SafeMap#generate()} which randomly
+ * creates a game map with grass and at most 10% water tiles, and one treasure tile.
+ *
+ * @author Luke Collins &amp; Stefania Damato
+ *
+ */
 public class SafeMap extends GameMap {
 
+    /**
+     * Constructor calls {@code super()} in {@link GameMap}, to create a map of desired size.
+     *
+     * @param size The desired size of the map ({@code size} &times; {@code size}).
+     */
     SafeMap(int size){
         super(size);
     }
 
+    /**
+     * This method, generates a 'safe' map.
+     * A safe map is a map with at most 10% of the tiles having type 'water'.
+     */
     public void generate(){
         int randomNum = 1 + (int)(Math.random() * ((10 - 1) + 1));
         int numberOfWaterTiles = (size * size * randomNum) / 100;

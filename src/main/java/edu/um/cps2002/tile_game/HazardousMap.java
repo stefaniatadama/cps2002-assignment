@@ -2,12 +2,29 @@ package edu.um.cps2002.tile_game;
 
 import java.util.Arrays;
 
+/**
+ * The {@code HazardousMap} class is a {@link GameMap} object, with
+ * the implementation of the method {@link HazardousMap#generate()} which randomly
+ * creates a game map with grass and 25%--35% water tiles, and one treasure tile.
+ *
+ * @author Luke Collins &amp; Stefania Damato
+ *
+ */
 public class HazardousMap extends GameMap {
 
+    /**
+     * Constructor calls {@code super()} in {@link GameMap}, to create a map of desired size.
+     *
+     * @param size The desired size of the map ({@code size} &times; {@code size}).
+     */
     HazardousMap(int size){
         super(size);
     }
 
+    /**
+     * This method, generates a 'hazardous' map.
+     * A hazardous map is a map with 25%--35% of the tiles having type 'water'.
+     */
     public void generate(){
         int randomNum = 25 + (int)(Math.random() * ((35 - 25) + 1));
         int numberOfWaterTiles = (size * size * randomNum) / 100;

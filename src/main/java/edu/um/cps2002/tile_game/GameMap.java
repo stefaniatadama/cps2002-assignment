@@ -1,9 +1,7 @@
 package edu.um.cps2002.tile_game;
 
-import java.util.Arrays;
-
 /**
- * The {@code GameMap} class implements a {@link Map} object, with
+ * The {@code GameMap} class is a {@link Map} object, with
  * the additional method {@link GameMap#generate()} which randomly
  * creates a game map with grass and water tiles, and one treasure tile.
  *
@@ -23,8 +21,7 @@ public abstract class GameMap extends Map {
 
 
     /**
-     * This method randomly places grass and water tiles in the ratio 25:2, then selects a single tile
-     * (not on the border of the map) to place the treasure.
+     * This method, when implemented, generates the tiles of the map
      */
     abstract void generate();
 }
