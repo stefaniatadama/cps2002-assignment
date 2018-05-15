@@ -56,7 +56,7 @@ public class HazardousMapTest {
 
     /**
      * Tests {@link HazardousMap#generate()} by checking that the
-     * number of water tiles is at most 10%.
+     * number of water tiles is between 25% and 35%.
      */
     @Test
     public void testWaterTileRatio(){
