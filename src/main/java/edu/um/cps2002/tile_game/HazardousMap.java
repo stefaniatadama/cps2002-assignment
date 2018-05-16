@@ -29,8 +29,8 @@ public class HazardousMap extends GameMap {
         int randomNum = 25 + (int)(Math.random() * ((35 - 25) + 1));
         int numberOfWaterTiles = (size * size * randomNum) / 100;
 
-        for(char[] row : tiles)             // All tiles are grass tiles by default
-            Arrays.fill(row, 'g');
+        for(Tile[] row : tiles)             // All tiles are grass tiles by default
+            Arrays.fill(row, new Tile('g'));
 
         // Generate Water tiles
         for(int i = 0; i < numberOfWaterTiles; i++) {
@@ -42,8 +42,8 @@ public class HazardousMap extends GameMap {
                 int x = (int) (Math.random()*size);
                 int y = (int) (Math.random()*size);
 
-                if (tiles[x][y] == 'g') {                           // If grass tile
-                    tiles[x][y] = 'w';                              // Set to water tile
+                if (tiles[x][y].getType() == 'g') {                  // If grass tile
+                    setTile(x,y,'w');                           // Set to water tile
                     alreadyWaterTile = false;
                 }
             }
@@ -52,7 +52,7 @@ public class HazardousMap extends GameMap {
         // Treasure tile
         int x = 1 + (int) (Math.random() * (size - 2));     // Random points, not on border
         int y = 1 + (int) (Math.random() * (size - 2));
-        tiles[x][y] = 't';
+        setTile(x, y,'t');
     }
 
 

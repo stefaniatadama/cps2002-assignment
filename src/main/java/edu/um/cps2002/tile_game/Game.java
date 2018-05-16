@@ -35,7 +35,7 @@ public class Game {
      * storing the tiles of the game (characters representing one of water, grass
      * or treasure).
      */
-    private GameMap map;
+    private Map map;
 
 
     /**
@@ -64,9 +64,6 @@ public class Game {
         this.map = map;
         this.players = new Player[numPlayers];
 
-        // Initialise each player object
-        for(int i = 0; i < numPlayers; i++)
-            this.players[i] = new Player();
     }
 
 
@@ -127,7 +124,6 @@ public class Game {
         players = new Player[numPlayers];
 
         for(int i = 0; i < numPlayers; i++) {
-            players[i] = new Player();
 
             // Give player a start position, grass tile
             int x = (int) (Math.random() * mapSize);
@@ -138,8 +134,11 @@ public class Game {
                 y = (int) (Math.random() * mapSize);
             }
 
-            // Assign the starting position to the player
-            players[i].setPlayerMapStart(mapSize, x, y);
+            // Initialise the player at position (x,y)
+            players[i] = new Player(x, y);
+
+            // The player 'visits' that tile
+            map.playerVisitTile(players[i], x, y);
         }
     }
 
@@ -149,7 +148,7 @@ public class Game {
      * @return map - The {@link GameMap} object storing the tiles on which the game
      * is played.
      */
-    public GameMap getMap(){
+    public Map getMap(){
         return map;
     }
 
@@ -192,7 +191,7 @@ public class Game {
             System.out.print("Player " + (i+1) + "'s move. Enter (U)p, (D)own, (L)eft or (R)ight: ");
             char input = Character.toLowerCase(sc.next().trim().charAt(0));
 
-            while(!players[i].moveAllowed(input)) {
+            while(!playerMoveAllowed(players[i], input)) {
                 System.out.print("Invalid move. ");
                 System.out.print("Player " + (i+1) + "'s move. Please enter (U)p, (D)own, (L)eft or (R)ight: ");
                 input = Character.toLowerCase(sc.next().trim().charAt(0));
@@ -200,6 +199,9 @@ public class Game {
 
             // Move the player
             players[i].move(input);
+
+            // Visit new position on map
+            map.playerVisitTile(players[i], players[i].getX(), players[i].getY());
         }
 
         // For each player
@@ -208,9 +210,6 @@ public class Game {
             int x = players[i].getX();
             int y = players[i].getY();
             char currentPosition = map.getTileType(x,y);
-
-            // Update player's map
-            players[i].updateMap(x, y, currentPosition);
 
             // If water, move back to start, if treasure, declare winner
             switch(currentPosition){
@@ -286,8 +285,34 @@ public class Game {
             fw = new FileWriter("map_player_" + (i+1) + ".html");
             bw = new BufferedWriter(fw);
 
-            bw.write(players[i].generateHTML(i + 1));
+            bw.write(map.generateHTML(players[i],i + 1));
             bw.close();
+        }
+    }
+
+    /**
+     * This method examines the player's current position and determines whether
+     * or not it is possible to move in a certain direction, ensuring that the
+     * player does not move out of the map.
+     *
+     * @param move A direction character, one of {@code u} (up), {@code d} (down),
+     *             {@code l} (left) or {@code r} (right).
+     *
+     * @return {@code true} if the move is admissible, {@code false} otherwise.
+     */
+    private boolean playerMoveAllowed(Player p, char move){
+         // Check if player is on the edges of the map
+        switch(move){
+            case 'u':
+                return p.getX() != 0;
+            case 'd':
+                return p.getX() != map.getSize() - 1;
+            case 'l':
+                return p.getY() != 0;
+            case 'r':
+                return p.getY() != map.getSize() - 1;
+            default:
+                return false;
         }
     }
 }

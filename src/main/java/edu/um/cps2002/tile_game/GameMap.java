@@ -20,8 +20,5 @@ public abstract class GameMap extends Map {
     }
 
 
-    /**
-     * This method, when implemented, generates the tiles of the map
-     */
-    abstract void generate();
+
 }
