@@ -31,9 +31,9 @@ public class Game {
 
 
     /**
-     * This {@link GameMap} object contains a two-dimensional array of characters
-     * storing the tiles of the game (characters representing one of water, grass
-     * or treasure).
+     * This {@link Map} object contains a two-dimensional array of characters
+     * storing the tiles of the game (representing one of water, grass or
+     * treasure).
      */
     private Map map;
 
@@ -54,16 +54,13 @@ public class Game {
      * A constructor for creating {@link Game} instances from a pre-existing map.
      * Used mainly for testing purposes.
      *
-     * @param numPlayers Number of players in the game.
+     * @param players The players to be used in the game.
      * @param map A pre-existing {@link Map} object for the game to be played in.
      * @see Player
      */
-    Game(int numPlayers, GameMap map){
-
-        // Assign the game map to the given map and generate player objects
+    Game(Player[] players, Map map){
         this.map = map;
-        this.players = new Player[numPlayers];
-
+        this.players = players;
     }
 
 
@@ -74,7 +71,8 @@ public class Game {
      *     First the user is asked for the number of players (2-8) and the size
      *     of the map (5-50 or 8-50). The correctness of the user input is checked
      *     by the {@code boolean} method {@link Game#setPlayersMap(int, int)}.
-     *     Then a corresponding {@link GameMap} object is created (assigned to
+     *     The user is also asked whether a safe or a hazardous map is to be used.
+     *     Then a corresponding {@link Map} object is created (assigned to
      *     {@link Game#map}) and a {@link Player} object is generated for each
      *     player (stored in {@link Game#players}). Finally each player is assigned
      *     a starting position on the map (which is known only to the player,
@@ -82,7 +80,7 @@ public class Game {
      * </p>
      *
      * @see Player
-     * @see GameMap#generate()
+     * @see Map#generate()
      */
     public void start(){
         sc = new Scanner(System.in);
@@ -145,7 +143,7 @@ public class Game {
 
     /**
      * A simple getter for the {@link Game#map} attribute.
-     * @return map - The {@link GameMap} object storing the tiles on which the game
+     * @return map - The {@link Map} object storing the tiles on which the game
      * is played.
      */
     public Map getMap(){
@@ -162,12 +160,11 @@ public class Game {
      *     their current position updated (i.e. the player's {@link Player#x} and
      *     {@link Player#y} attributes via {@link Player#move(char)}), so long
      *     as the move is allowed (determined by the boolean
-     *     {@link Player#moveAllowed(char)}). After this process is carried out
-     *     for each player, their corresponding maps ({@link Player#playerMapCopy})
-     *     are updated. If any player lands on a water tile, then they are sent
-     *     back to their initial position (via {@link Player#returnToStart()}),
-     *     whereas if any player lands on the treasure tile, they are declared
-     *     winners and {@code noWinners} is set to false.
+     *     {@link Game#playerMoveAllowed(Player, char)}). If any player lands on a
+     *     water tile, then they are sent back to their initial position
+     *     (via {@link Player#returnToStart()}), whereas if any player lands on the
+     *     treasure tile, they are declared winners and {@code noWinners} is set to
+     *     false.
      * </p>
      *
      * @return noWinner - A {@code boolean} variable which is {@code true} when none
@@ -295,12 +292,13 @@ public class Game {
      * or not it is possible to move in a certain direction, ensuring that the
      * player does not move out of the map.
      *
+     * @param p The player to make the move.
      * @param move A direction character, one of {@code u} (up), {@code d} (down),
      *             {@code l} (left) or {@code r} (right).
      *
      * @return {@code true} if the move is admissible, {@code false} otherwise.
      */
-    private boolean playerMoveAllowed(Player p, char move){
+    boolean playerMoveAllowed(Player p, char move){
          // Check if player is on the edges of the map
         switch(move){
             case 'u':

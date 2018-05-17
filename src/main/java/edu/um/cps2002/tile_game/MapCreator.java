@@ -1,7 +1,7 @@
 package edu.um.cps2002.tile_game;
 
 /**
- * The {@code MapCreator} class creates an appropriate {@link GameMap}
+ * The {@code MapCreator} class creates an appropriate {@link Map}
  * using a given parameter (factory method design pattern).
  *
  * @author Luke Collins &amp; Stefania Damato

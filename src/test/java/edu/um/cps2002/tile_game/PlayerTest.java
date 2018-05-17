@@ -33,45 +33,6 @@ public class PlayerTest {
 
 
     /**
-     * Tests {@link Player#setPlayerMapStart(int, int, int)} by
-     * ensuring the player's initial tile is a grass tile and that
-     * the player's initial coordinates are the ones specified.
-     */
-//    @Test
-//    public void testSetPlayerMapStart(){
-//        int size = 10;
-//        player.setPlayerMapStart(size, size/2, size/3);
-//
-//        assertEquals('g', player.getPlayerMapCopy().getTileType(size/2,size/3));
-//        assertEquals(size/2, player.getX());
-//        assertEquals(size/3, player.getY());
-//    }
-
-
-    /**
-     * Tests {@link Player#moveAllowed(char)} by entering both
-     * valid and invalid moves and checking the return value in
-     * each case.
-     */
-//    @Test
-//    public void testMoveAllowed(){
-//        int size = 10;
-//
-//        // Player located at bottom left corner
-//        player.setPlayerMapStart(size, size-1, 0);
-//        boolean allowed_down = player.moveAllowed('d');
-//        boolean allowed_left = player.moveAllowed('l');
-//        boolean allowed_right = player.moveAllowed('r');
-//        boolean allowed_up = player.moveAllowed('u');
-//
-//        assertEquals(false, allowed_down);
-//        assertEquals(false, allowed_left);
-//        assertEquals(true, allowed_right);
-//        assertEquals(true, allowed_up);
-//    }
-
-
-    /**
      * Tests {@link Player#move(char)} with valid input.
      */
 //    @Test
