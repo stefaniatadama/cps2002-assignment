@@ -124,12 +124,12 @@ public class Game {
         for(int i = 0; i < numPlayers; i++) {
 
             // Give player a start position, grass tile
-            int x = (int) (Math.random() * mapSize);
-            int y = (int) (Math.random() * mapSize);
+            int x = (int) (Math.random() * (mapSize-1));
+            int y = (int) (Math.random() * (mapSize-1));
 
             while (map.getTileType(x, y) != 'g') {
-                x = (int) (Math.random() * mapSize);
-                y = (int) (Math.random() * mapSize);
+                x = (int) (Math.random() * (mapSize-1));
+                y = (int) (Math.random() * (mapSize-1));
             }
 
             // Initialise the player at position (x,y)

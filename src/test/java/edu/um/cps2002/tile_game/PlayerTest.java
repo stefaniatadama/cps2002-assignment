@@ -22,76 +22,73 @@ public class PlayerTest {
      */
     Player player;
 
+
+    /**
+     * {@link Map} object used for testing.
+     */
+    Map map;
+
+
+    /**
+     * {@link Game} object used for testing.
+     */
+    Game game;
+
+
+    /**
+     * {@link MapCreator} object used for testing.
+     */
+    MapCreator creator;
+
+
+    /**
+     * Size of the map used for testing.
+     */
+    int size = 25;
+
+
     /**
      * This method creates a {@link Player} instance for future
      * tests.
      */
-//    @Before
-//    public void setup() {
-//        player = new Player();
-//    }
+    @Before
+    public void setup() {
+        player = new Player(0,0);
+
+        creator = new MapCreator();
+        map = creator.createMap("S", size);
+
+        game = new Game();
+    }
 
 
     /**
      * Tests {@link Player#move(char)} with valid input.
      */
-//    @Test
-//    public void testMove(){
-//        int size = 15;
-//        player.setPlayerMapStart(size, 0, 0);
-//
-//        player.move('d');
-//        assertEquals(1, player.getX());
-//        assertEquals(0, player.getY());
-//    }
+    @Test
+    public void testMove(){
+
+        player.move('d');
+        assertEquals(1, player.getX());
+        assertEquals(0, player.getY());
+    }
 
 
     /**
      * Tests {@link Player#move(char)} with invalid input
      * which throws an exception.
      */
-//    @Test(expected = IllegalArgumentException.class)
-//    public void testMoveInvalid(){
-//        int size = 15;
-//        player.setPlayerMapStart(size, 0, 0);
-//
-//        player.move('a');
-//    }
-
-
-    /**
-     * Tests {@link Player#updateMap(int, int, char)} with valid input,
-     * by changing an undiscovered (?) tile to a water tile.
-     */
-//    @Test
-//    public void testUpdateMap(){
-//        int size = 20;
-//        player.setPlayerMapStart(size, size/2, size/2);
-//
-//        player.updateMap(0, 0, 'w');
-//        assertEquals('w', player.getPlayerMapCopy().getTileType(0,0));
-//    }
-
-
-    /**
-     * Tests {@link Player#updateMap(int, int, char)} with invalid input,
-     * by trying to change a tile of known type to a different type. This
-     * throws an exception.
-     */
-//    @Test(expected = IllegalStateException.class)
-//    public void testUpdateMapInvalid(){
-//        int size = 20;
-//        player.setPlayerMapStart(size, size/2, size/2);
-//
-//        player.updateMap(size/2, size/2, 't');
-//    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testMoveInvalid(){
+        player.move('a');
+    }
 
 
     /**
      * This method frees memory after all tests are completed.
      */
-//    @After
-//    public void teardown(){
-//        player = null;
-//    }
+    @After
+    public void teardown(){
+        player = null;
+    }
 }

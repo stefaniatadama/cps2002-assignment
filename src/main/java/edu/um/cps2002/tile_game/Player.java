@@ -105,8 +105,4 @@ public class Player {
          this.x = startX;
          this.y = startY;
      }
-
-
-
-
 }

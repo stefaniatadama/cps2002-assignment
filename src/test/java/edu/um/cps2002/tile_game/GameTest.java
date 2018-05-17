@@ -49,6 +49,10 @@ public class GameTest {
      */
     int size = 25;
 
+
+    /**
+     * {@link Map} object used for testing.
+     */
     Map map;
 
 
@@ -59,7 +63,6 @@ public class GameTest {
     public void setup(){
         creator = new MapCreator();
         map = creator.createMap("H", size);
-
         game = new Game();
     }
 
@@ -134,8 +137,12 @@ public class GameTest {
      */
     @Test
     public void testIncorrectInput(){
-        // 9 players, map size 30, then 8 players, map size 30, safe map
-        String input = "9\n 30\n 8\n 30\nS\n";
+        /* 9 players, map size 25, then 8 players, map size 25, safe map
+         * Note that in these tests, the map is already set to size 25 and
+         * hazardous, so these inputs are only affecting the player number.
+         * We cannot change the map size or type since these were already
+         * set in the setup stage and the map is static. */
+        String input = "9\n 25\n 8\n 25\nH\n";
 
         // Change input stream
         InputStream in = new ByteArrayInputStream(input.getBytes());
@@ -163,8 +170,8 @@ public class GameTest {
      */
     @Test
     public void testStartPlayerOnGrassTile(){
-        // 4 players, map size 10, hazardous map
-        String input = "4\n 10\nH\n";
+        // 4 players, map size 25, hazardous map
+        String input = "4\n 25\nH\n";
 
         // Change input stream
         InputStream in = new ByteArrayInputStream(input.getBytes());

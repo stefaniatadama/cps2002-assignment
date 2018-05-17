@@ -24,9 +24,9 @@ public class MapCreator {
         if(theOnlyMap != null)
             return theOnlyMap;
         if(type.equals("H"))
-            return new HazardousMap(size);
+            theOnlyMap = new HazardousMap(size);
         if(type.equals("S"))
-            return new SafeMap(size);
+            theOnlyMap = new SafeMap(size);
 
         return theOnlyMap;
     }
