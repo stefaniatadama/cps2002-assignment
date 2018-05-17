@@ -1,10 +1,8 @@
 package edu.um.cps2002.tile_game;
 
 /**
- * The {@code Player} class contains a copy of the game map from the player's
- * perspective, the location of the player on the map, various methods
- * which allow the player to move around the map and a method to generate
- * the HTML code of the player's map.
+ * The {@code Player} class contains methods that have to do with the
+ * player's position in the map.
  *
  * @author Luke Collins &amp; Stefania Damato
  *
@@ -36,7 +34,10 @@ public class Player {
 
 
     /**
-     * The default constructor.
+     * The constructor for {@link Player}, which takes the player's initial
+     * position.
+     * @param x The player's initial x-coordinate.
+     * @param y The player's initial y-coordinate.
      */
     Player(int x, int y){
         this.startX = x;
@@ -72,7 +73,7 @@ public class Player {
      * {@link Player#y}).
      *
      * @param move A direction character, one of {@code u} (up), {@code d} (down),
-     *             {@code l} (left) or {@code r} (right).
+     * {@code l} (left) or {@code r} (right).
      *
      * @throws IllegalArgumentException Should the argument {@code move} not equal
      * one of {@code u} (up), {@code d} (down), {@code l} (left) or {@code r}

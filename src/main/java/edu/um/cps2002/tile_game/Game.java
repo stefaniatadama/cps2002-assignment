@@ -31,7 +31,7 @@ public class Game {
 
 
     /**
-     * This {@link Map} object contains a two-dimensional array of characters
+     * This {@link Map} object contains a two-dimensional array of {@link Tile}s
      * storing the tiles of the game (representing one of water, grass or
      * treasure).
      */
@@ -51,12 +51,11 @@ public class Game {
 
 
     /**
-     * A constructor for creating {@link Game} instances from a pre-existing map.
-     * Used mainly for testing purposes.
+     * A constructor for creating {@link Game} instances from a pre-existing map,
+     * given the players. Used mainly for testing purposes.
      *
      * @param players The players to be used in the game.
      * @param map A pre-existing {@link Map} object for the game to be played in.
-     * @see Player
      */
     Game(Player[] players, Map map){
         this.map = map;
@@ -78,9 +77,6 @@ public class Game {
      *     a starting position on the map (which is known only to the player,
      *     stored in {@link Player#x} and {@link Player#y}).
      * </p>
-     *
-     * @see Player
-     * @see Map#generate()
      */
     public void start(){
         sc = new Scanner(System.in);
@@ -267,7 +263,7 @@ public class Game {
 
 
     /**
-     * Generates an HTML file for each player using the {@link Player#generateHTML(int)}
+     * Generates an HTML file for each player using the {@link Map#generateHTML(Player, int)}
      * method.
      * @throws IOException Should the writing of HTML files fail.
      */

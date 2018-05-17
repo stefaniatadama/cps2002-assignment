@@ -73,8 +73,37 @@ public class HazardousMapTest {
 
         double ratio = (no_of_water_tiles*100)/(size*size);
         System.out.println(ratio);
-        // We allow 24 due to the int conversion when calculating the number of water tiles in HazardousMap
+        // We allow 24 due to the int conversion when calculating
+        // the number of water tiles in HazardousMap
         assertTrue(24 <= ratio && ratio <= 35);
+    }
+
+    /**
+     * aghmel xi comment haw
+     */
+    @Test
+    public void testHTMLTable(){
+        HazardousMap map = new HazardousMap(2);
+        map.setTile(0,0,'w');
+        map.setTile(0,1,'t');
+        map.setTile(1,0,'g');
+        map.setTile(1,1,'g');
+
+        Player player = new Player(1,1);
+        map.playerVisitTile(player, 0,0);
+        map.playerVisitTile(player, 0,1);
+        map.playerVisitTile(player, 1,1);
+
+        String table = map.htmlMapTable(player);
+
+        assertEquals("<tr>\n" +
+                "<td class = water>&ensp;</td>\n" +
+                "<td class = treasure>&#x1F3C1;</td>\n" +
+                "</tr>\n" +
+                "<tr>\n" +
+                "<td>&ensp;</td>\n" +
+                "<td class = grass>&#x1F468;</td>\n" +
+                "</tr>\n", table);
     }
 
 

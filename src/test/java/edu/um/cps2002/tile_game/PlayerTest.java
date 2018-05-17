@@ -36,27 +36,20 @@ public class PlayerTest {
 
 
     /**
-     * {@link MapCreator} object used for testing.
-     */
-    MapCreator creator;
-
-
-    /**
      * Size of the map used for testing.
      */
     int size = 25;
 
 
     /**
-     * This method creates a {@link Player} instance for future
-     * tests.
+     * This method creates a {@link Player}, a {@link Map} and a
+     * {@link Game} instance for future tests.
      */
     @Before
     public void setup() {
         player = new Player(0,0);
 
-        creator = new MapCreator();
-        map = creator.createMap("S", size);
+        map = new SafeMap(size);
 
         game = new Game();
     }
@@ -67,7 +60,6 @@ public class PlayerTest {
      */
     @Test
     public void testMove(){
-
         player.move('d');
         assertEquals(1, player.getX());
         assertEquals(0, player.getY());

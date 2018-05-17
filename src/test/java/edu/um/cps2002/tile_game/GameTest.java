@@ -28,27 +28,9 @@ public class GameTest {
 
 
     /**
-     * {@link Game} object used for testing.
+     * Another {@link Game} object used for testing.
      */
     Game game2;
-
-
-    /**
-     * {@link MapCreator} object used for testing.
-     */
-    MapCreator creator;
-
-
-    /**
-     * Number of players used for testing.
-     */
-    int numPlayers = 5;
-
-    /**
-     * Size of the map used for testing.
-     */
-    int size = 25;
-
 
     /**
      * {@link Map} object used for testing.
@@ -57,12 +39,26 @@ public class GameTest {
 
 
     /**
-     * This method creates a {@link Game} instance for future tests.
+     * Size of map used for testing.
+     */
+    int size = 25;
+
+
+    /**
+     * This method creates a {@link Map} using {@link MapCreator}
+     * and a new {@link Game}. The map is shared among all
+     * instances of the map creator.
      */
     @Before
     public void setup(){
-        creator = new MapCreator();
-        map = creator.createMap("H", size);
+        map = new HazardousMap(size);
+
+        // Start by setting all tiles on the map to green, otherwise we
+        // might get a null pointer exception.
+        for(int i=0; i<size; i++)
+            for(int j=0; j<size; j++)
+                map.setTile(i, j, 'g');
+
         game = new Game();
     }
 
@@ -200,16 +196,13 @@ public class GameTest {
      */
     @Test
     public void testGamePlayRound(){
-        for(int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                // Create map made up entirely of grass tiles
-                map.setTile(i, j, 'g');
-            }
-        }
-
         // Set players starting position manually to make sure move is valid
         Player player1 = new Player(size/2, size/2);
         Player player2 = new Player(size/3, size/3);
+
+        //Set players' initial positions to a grass tiles
+        map.setTile(size/2,size/2, 'g');
+        map.setTile(size/3,size/3, 'g');
 
         Player[] players = {player1, player2};
 
@@ -242,16 +235,13 @@ public class GameTest {
      */
     @Test
     public void testGamePlayRoundInvalidMove(){
-        for(int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                // Create map made up entirely of grass tiles
-                map.setTile(i, j, 'g');
-            }
-        }
-
         // Set players starting position manually to make sure move is invalid
         Player player1 = new Player(0, 0);
         Player player2 = new Player(size-1, 0);
+
+        //Set players' initial positions to a grass tiles
+        map.setTile(0,0, 'g');
+        map.setTile(size-1,0, 'g');
 
         Player[] players = {player1, player2};
 
@@ -288,15 +278,11 @@ public class GameTest {
      */
     @Test
     public void testGamePlayRoundWater(){
-        for(int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                // Create map made up entirely of grass tiles
-                map.setTile(i, j, 'g');
-            }
-        }
-
         // Set player's starting position manually
         Player player1 = new Player(3, 3);
+
+        //Set player's initial position to a grass tile
+        map.setTile(3,3, 'g');
 
         Player[] players = {player1};
 
@@ -330,15 +316,11 @@ public class GameTest {
      */
     @Test
     public void testGamePlayRoundWinner(){
-        for(int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                // Create map made up entirely of grass tiles
-                map.setTile(i, j, 'g');
-            }
-        }
-
         // Set player's starting position manually
         Player player1 = new Player(3, 3);
+
+        //Set player's initial position to a grass tile
+        map.setTile(3,3, 'g');
 
         Player[] players = {player1};
 
@@ -347,9 +329,6 @@ public class GameTest {
 
         // Set tile downwards of the player to treasure
         map.setTile(4,3, 't');
-
-        // Start a game with 1 player and the created map
-        game2 = new Game(players, map);
 
         // Player moves left
         String input = "d\n";
@@ -373,8 +352,7 @@ public class GameTest {
 
     /**
      * Tests {@link Game#playerMoveAllowed(Player, char)} by entering both
-     * valid and invalid moves and checking the return value in
-     * each case.
+     * valid and invalid moves and checking the return value in each case.
      */
     @Test
     public void testMoveAllowed(){
@@ -401,7 +379,6 @@ public class GameTest {
     @After
     public void teardown(){
         game = null;
-        creator = null;
     }
 
 }

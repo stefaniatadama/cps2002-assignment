@@ -1,9 +1,8 @@
 package edu.um.cps2002.tile_game;
 
 /**
- * The {@code Map} class contains a two-dimensional array of {@code char}
- * entries referred to as <i>tiles</i> and some simple methods common to both
- * the map used by the {@link Game} class and the individual {@link Player}s.
+ * The {@code Map} class contains a two-dimensional array of {@link Tile}s
+ * and some simple methods that operate on the map.
  *
  * @author Luke Collins &amp; Stefania Damato
  *
@@ -16,10 +15,12 @@ public abstract class Map {
      */
     int size;
 
+
     /**
-     * The {@code char} array of tiles.
+     * The array of {@link Tile}s.
      */
     Tile[][] tiles;
+
 
     /**
      * Constructor which initialises the array and sets the attribute {@link Map#size}
@@ -30,6 +31,7 @@ public abstract class Map {
         this.size = size;
         this.tiles = new Tile[size][size];
     }
+
 
     /**
      * This method is to be implemented by any subclass of {@link Map} and in each case,
@@ -45,16 +47,18 @@ public abstract class Map {
         return size;
     }
 
+
     /**
      * Simple getter for individual tiles in the {@link Map#tiles} array.
      * @param x Row in the {@link Map#tiles} array.
      * @param y Column in the {@link Map#tiles} array.
-     * @return The character in the {@code x}th row and {@code y}th column of the
-     * {@link Map#tiles} array.
+     * @return The character corresponding to the {@link Tile} in the
+     * {@code x}th row and {@code y}th column of the {@link Map#tiles} array.
      */
     final public char getTileType(int x, int y){
         return tiles[x][y].getType();
     }
+
 
     /**
      * Simple setter for individual tiles in the {@link Map#tiles} array.
@@ -85,15 +89,21 @@ public abstract class Map {
     }
 
 
+    /**
+     * The tile with coordinates {@code x}, {@code y} is visited by the given player.
+     * @param p The player to visit the tile.
+     * @param x x-coordinate of the tile to be visited.
+     * @param y y-coordinate of the tile to be visited.
+     */
     final public void playerVisitTile(Player p, int x, int y){
         tiles[x][y].visit(p);
     }
 
     /**
      * This method generates an HTML file for the current player, using the
-     * {@link PlayerMap#htmlMapTable(int, int)} function to generate an HTML
-     * table which represents {@link Player#playerMapCopy}.
+     * {@link Map#htmlMapTable(Player)} function.
      *
+     * @param p The {@link Player} for whom we generate the HTML.
      * @param playerNo Which player this is (player 1, player 2, etc.).
      * @return The HTML file as a {@code String}.
      */
@@ -184,7 +194,7 @@ public abstract class Map {
         // Generate table for player's map
         String table = htmlMapTable(p);
 
-        // HTML End Stuff
+        // HTML closing tags
         String post = "</table>\n" +
                 "   </div>\n" +
                 "\n" +
@@ -202,8 +212,7 @@ public abstract class Map {
      * &#x1F468; where the player is, unless they are on the treasure in which case
      * the character &#x1F3C1; is placed instead.
      *
-     * @param currentPlayerX Current row of the player in {@link PlayerMap#tiles} array.
-     * @param currentPlayerY Current column of the player in {@link PlayerMap#tiles} array.
+     * @param currentPlayer The player whose map we will be displaying.
      * @return A {@code String} containing an HTML table representation of the map.
      */
     String htmlMapTable(Player currentPlayer){
@@ -235,14 +244,15 @@ public abstract class Map {
                         default:
                             throw new IllegalStateException("Invalid tile type encountered.");
                     }
-
-                    if (tiles[i][j].getType() == 't')
-                        table += "&#x1F3C1;";
-                    else if (i == currentPlayer.getX() && j == currentPlayer.getY())
-                        table += "&#x1F468;";
-                    else
-                        table += "&ensp;";
                 }
+
+                if (tiles[i][j].getType() == 't' && tiles[i][j].hasVisited(currentPlayer))
+                    table += "&#x1F3C1;";
+                else if (i == currentPlayer.getX() && j == currentPlayer.getY())
+                    table += "&#x1F468;";
+                else
+                    table += "&ensp;";
+
 
                 table += "</td>\n";
             }

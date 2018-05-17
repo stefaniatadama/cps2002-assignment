@@ -29,8 +29,9 @@ public class HazardousMap extends Map {
         int randomNum = 25 + (int)(Math.random() * ((35 - 25) + 1));
         int numberOfWaterTiles = (size * size * randomNum) / 100;
 
-        for(Tile[] row : tiles)             // All tiles are grass tiles by default
-            Arrays.fill(row, new Tile('g'));
+        for(int i = 0; i < size; i++)             // All tiles are grass tiles by default
+            for(int j = 0; j < size; j++)
+                tiles[i][j] = new Tile('g');
 
         // Generate Water tiles
         for(int i = 0; i < numberOfWaterTiles; i++) {

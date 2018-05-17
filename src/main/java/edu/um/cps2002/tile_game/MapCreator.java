@@ -15,9 +15,9 @@ public class MapCreator {
      * Generates an appropriate map object ({@link HazardousMap} or
      * {@link SafeMap}).
      *
-     * @param type A string argument which determines the map type
-     * @param size The size of the map
-     * @return Appropriate map object
+     * @param type A string argument which determines the map type.
+     * @param size The size of the map.
+     * @return Appropriate map object.
      */
     public synchronized Map createMap(String type, int size){
 
