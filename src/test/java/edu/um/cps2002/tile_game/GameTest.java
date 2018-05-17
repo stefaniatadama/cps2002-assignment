@@ -28,16 +28,37 @@ public class GameTest {
 
 
     /**
-     * {@link Game} object used for testing.
+     * Another {@link Game} object used for testing.
      */
     Game game2;
 
+    /**
+     * {@link Map} object used for testing.
+     */
+    Map map;
+
 
     /**
-     * This method creates a {@link Game} instance for future tests.
+     * Size of map used for testing.
+     */
+    int size = 25;
+
+
+    /**
+     * This method creates a {@link Map} using {@link MapCreator}
+     * and a new {@link Game}. The map is shared among all
+     * instances of the map creator.
      */
     @Before
     public void setup(){
+        map = new HazardousMap(size);
+
+        // Start by setting all tiles on the map to green, otherwise we
+        // might get a null pointer exception.
+        for(int i=0; i<size; i++)
+            for(int j=0; j<size; j++)
+                map.setTile(i, j, 'g');
+
         game = new Game();
     }
 
@@ -112,8 +133,12 @@ public class GameTest {
      */
     @Test
     public void testIncorrectInput(){
-        // 9 players, map size 30, then 8 players, map size 30, safe map
-        String input = "9\n 30\n 8\n 30\nS\n";
+        /* 9 players, map size 25, then 8 players, map size 25, safe map
+         * Note that in these tests, the map is already set to size 25 and
+         * hazardous, so these inputs are only affecting the player number.
+         * We cannot change the map size or type since these were already
+         * set in the setup stage and the map is static. */
+        String input = "9\n 25\n 8\n 25\nH\n";
 
         // Change input stream
         InputStream in = new ByteArrayInputStream(input.getBytes());
@@ -141,8 +166,8 @@ public class GameTest {
      */
     @Test
     public void testStartPlayerOnGrassTile(){
-        // 4 players, map size 10, hazardous map
-        String input = "4\n 10\nH\n";
+        // 4 players, map size 25, hazardous map
+        String input = "4\n 25\nH\n";
 
         // Change input stream
         InputStream in = new ByteArrayInputStream(input.getBytes());
@@ -171,26 +196,18 @@ public class GameTest {
      */
     @Test
     public void testGamePlayRound(){
-        int size = 10;
-
-        HazardousMap map = new HazardousMap(size);
-
-        for(int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                // Create map made up entirely of grass tiles
-                map.setTile(i, j, 'g');
-            }
-        }
-
-        // Start a game with 2 players and the created map
-        game2 = new Game(2, map);
-
-        Player player1 = game2.getPlayer(0);
-        Player player2 = game2.getPlayer(1);
-
         // Set players starting position manually to make sure move is valid
-        player1.setPlayerMapStart(size, size/2, size/2);
-        player2.setPlayerMapStart(size, size/3, size/3);
+        Player player1 = new Player(size/2, size/2);
+        Player player2 = new Player(size/3, size/3);
+
+        //Set players' initial positions to a grass tiles
+        map.setTile(size/2,size/2, 'g');
+        map.setTile(size/3,size/3, 'g');
+
+        Player[] players = {player1, player2};
+
+        // Start a game with the 2 players and the created map
+        game2 = new Game(players, map);
 
         // Both players moving up
         String input = "u\n u\n";
@@ -201,11 +218,13 @@ public class GameTest {
 
         game2.gameplayRound();
 
-        assertEquals('g', player1.getPlayerMapCopy().getTileType(player1.getX(), player1.getY()));
-        assertEquals('g', player2.getPlayerMapCopy().getTileType(player2.getX(), player2.getY()));
+        assertEquals('g', map.getTileType(player1.getX(), player1.getY()));
+        assertEquals('g', map.getTileType(player2.getX(), player2.getY()));
 
         // Reset buffer
         System.setIn(System.in);
+
+        game2 = null;
     }
 
 
@@ -216,26 +235,18 @@ public class GameTest {
      */
     @Test
     public void testGamePlayRoundInvalidMove(){
-        int size = 20;
-
-        SafeMap map = new SafeMap(size);
-
-        for(int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                // Create map made up entirely of grass tiles
-                map.setTile(i, j, 'g');
-            }
-        }
-
-        // Start a game with 2 players and the created map
-        game2 = new Game(2, map);
-
-        Player player1 = game2.getPlayer(0);
-        Player player2 = game2.getPlayer(1);
-
         // Set players starting position manually to make sure move is invalid
-        player1.setPlayerMapStart(size, 0, 0);
-        player2.setPlayerMapStart(size, size-1, 0);
+        Player player1 = new Player(0, 0);
+        Player player2 = new Player(size-1, 0);
+
+        //Set players' initial positions to a grass tiles
+        map.setTile(0,0, 'g');
+        map.setTile(size-1,0, 'g');
+
+        Player[] players = {player1, player2};
+
+        // Start a game with the 2 players and the created map
+        game2 = new Game(players, map);
 
         // First player moving left is invalid so then he moves right
         // Second player moving right is invalid so then he moves left
@@ -256,6 +267,8 @@ public class GameTest {
         // Reset buffers
         System.setIn(System.in);
         System.setOut(out);
+
+        game2 = null;
     }
 
 
@@ -265,27 +278,19 @@ public class GameTest {
      */
     @Test
     public void testGamePlayRoundWater(){
-        int size = 10;
+        // Set player's starting position manually
+        Player player1 = new Player(3, 3);
 
-        HazardousMap map = new HazardousMap(size);
+        //Set player's initial position to a grass tile
+        map.setTile(3,3, 'g');
 
-        for(int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                // Create map made up entirely of grass tiles
-                map.setTile(i, j, 'g');
-            }
-        }
+        Player[] players = {player1};
+
+        // Start a game with the 1 player and the created map
+        game2 = new Game(players, map);
 
         // Set tile to the left of the player to water
         map.setTile(3,2, 'w');
-
-        // Start a game with 1 player and the created map
-        game2 = new Game(1, map);
-
-        Player player1 = game2.getPlayer(0);
-
-        // Set player's starting position manually
-        player1.setPlayerMapStart(size, 3, 3);
 
         // Player moving left
         String input = "l\n";
@@ -311,30 +316,22 @@ public class GameTest {
      */
     @Test
     public void testGamePlayRoundWinner(){
-        int size = 10;
-
-        SafeMap map = new SafeMap(size);
-
-        for(int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                // Create map made up entirely of grass tiles
-                map.setTile(i, j, 'g');
-            }
-        }
-
-        // Set tile to the left of the player to treasure
-        map.setTile(3,2, 't');
-
-        // Start a game with 1 player and the created map
-        game2 = new Game(1, map);
-
-        Player player1 = game2.getPlayer(0);
-
         // Set player's starting position manually
-        player1.setPlayerMapStart(size, 3, 3);
+        Player player1 = new Player(3, 3);
+
+        //Set player's initial position to a grass tile
+        map.setTile(3,3, 'g');
+
+        Player[] players = {player1};
+
+        // Start a game with the 1 player and the created map
+        game2 = new Game(players, map);
+
+        // Set tile downwards of the player to treasure
+        map.setTile(4,3, 't');
 
         // Player moves left
-        String input = "l\n";
+        String input = "d\n";
 
         // Change input stream
         InputStream in = new ByteArrayInputStream(input.getBytes());
@@ -353,6 +350,28 @@ public class GameTest {
         System.setOut(out);
     }
 
+    /**
+     * Tests {@link Game#playerMoveAllowed(Player, char)} by entering both
+     * valid and invalid moves and checking the return value in each case.
+     */
+    @Test
+    public void testMoveAllowed(){
+        //Player starts game at upper left corner
+        Player player1 = new Player(0,0);
+        Player[] players = {player1};
+
+        game2 = new Game(players, map);
+
+        boolean allowed_down = game2.playerMoveAllowed(player1, 'd');
+        boolean allowed_left = game2.playerMoveAllowed(player1, 'l');
+        boolean allowed_right = game2.playerMoveAllowed(player1, 'r');
+        boolean allowed_up = game2.playerMoveAllowed(player1, 'u');
+
+        assertEquals(true, allowed_down);
+        assertEquals(false, allowed_left);
+        assertEquals(true, allowed_right);
+        assertEquals(false, allowed_up);
+    }
 
     /**
      * This method frees memory after all tests are completed.

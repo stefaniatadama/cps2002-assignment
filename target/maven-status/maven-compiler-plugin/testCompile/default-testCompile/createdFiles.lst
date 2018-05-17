@@ -1,7 +1,7 @@
 edu/um/cps2002/tile_game/GameTest.class
 edu/um/cps2002/calculator_hello_world/HelloWorldTest.class
 edu/um/cps2002/tile_game/PlayerTest.class
-edu/um/cps2002/tile_game/PlayerMapTest.class
 edu/um/cps2002/calculator_hello_world/CalculatorTest.class
 edu/um/cps2002/tile_game/SafeMapTest.class
+edu/um/cps2002/tile_game/MapCreatorTest.class
 edu/um/cps2002/tile_game/HazardousMapTest.class

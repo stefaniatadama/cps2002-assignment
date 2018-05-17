@@ -3,17 +3,17 @@ package edu.um.cps2002.tile_game;
 import java.util.Arrays;
 
 /**
- * The {@code SafeMap} class is a {@link GameMap} object, with
+ * The {@code SafeMap} class is a {@link Map} object, with
  * the implementation of the method {@link SafeMap#generate()} which randomly
  * creates a game map with grass and at most 10% water tiles, and one treasure tile.
  *
  * @author Luke Collins &amp; Stefania Damato
  *
  */
-public class SafeMap extends GameMap {
+public class SafeMap extends Map {
 
     /**
-     * Constructor calls {@code super()} in {@link GameMap}, to create a map of desired size.
+     * Constructor calls {@code super()} in {@link Map}, to create a map of desired size.
      *
      * @param size The desired size of the map ({@code size} &times; {@code size}).
      */
@@ -29,8 +29,9 @@ public class SafeMap extends GameMap {
         int randomNum = 1 + (int)(Math.random() * ((10 - 1) + 1));
         int numberOfWaterTiles = (size * size * randomNum) / 100;
 
-        for(char[] row : tiles)             // All tiles are grass tiles by default
-            Arrays.fill(row, 'g');
+        for(int i = 0; i < size; i++)             // All tiles are grass tiles by default
+            for(int j = 0; j < size; j++)
+                tiles[i][j] = new Tile('g');
 
         // Generate Water tiles
         for(int i = 0; i < numberOfWaterTiles; i++) {
@@ -42,8 +43,8 @@ public class SafeMap extends GameMap {
                 int x = (int) (Math.random()*size);
                 int y = (int) (Math.random()*size);
 
-                if (tiles[x][y] == 'g') {                           // If grass tile
-                    tiles[x][y] = 'w';                              // Set to water tile
+                if (tiles[x][y].getType() == 'g') {                 // If grass tile
+                    setTile(x, y, 'w');                        // Set to water tile
                     alreadyWaterTile = false;
                 }
             }
@@ -52,6 +53,6 @@ public class SafeMap extends GameMap {
         // Treasure tile
         int x = 1 + (int) (Math.random() * (size - 2));     // Random points, not on border
         int y = 1 + (int) (Math.random() * (size - 2));
-        tiles[x][y] = 't';
+        setTile(x, y, 't');
     }
 }
