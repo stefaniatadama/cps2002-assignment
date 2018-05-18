@@ -29,6 +29,11 @@ public class Game {
      */
     private Player[] players;
 
+    /**
+     * Array of {@link Team} objects.
+     */
+    private Team[] teams;
+
 
     /**
      * This {@link Map} object contains a two-dimensional array of {@link Tile}s
@@ -80,7 +85,7 @@ public class Game {
      */
     public void start(){
         sc = new Scanner(System.in);
-        int numPlayers = 0, mapSize = 0;
+        int numPlayers = 0, mapSize = 0, numTeams = 0;
         boolean valid = false, firstLoop = true;
         String mapType = "";
 
@@ -100,6 +105,14 @@ public class Game {
             firstLoop = false;
         }
 
+        System.out.print("Enter number of teams: ");
+        numTeams = sc.nextInt();
+        while(numTeams > numPlayers || numTeams < 1){
+            System.out.println("Invalid number of teams. Please try again.");
+            System.out.print("Enter number of teams: ");
+            numTeams = sc.nextInt();
+        }
+
         sc.nextLine();
         // Ask user for map type
         while(!mapType.equals("S") && !mapType.equals("H")){
@@ -114,11 +127,18 @@ public class Game {
         map = mc.createMap(mapType, mapSize);
         map.generate();
 
+        // Initialise Teams
+        teams = new Team[numTeams];
+
+        // Setting team numbers starting from 1
+        for(int i = 0; i < numTeams; i++){
+            teams[i] = new Team(i+1);
+        }
+
         // Initialise Players
         players = new Player[numPlayers];
 
         for(int i = 0; i < numPlayers; i++) {
-
             // Give player a start position, grass tile
             int x = (int) (Math.random() * (mapSize-1));
             int y = (int) (Math.random() * (mapSize-1));
@@ -130,6 +150,21 @@ public class Game {
 
             // Initialise the player at position (x,y)
             players[i] = new Player(x, y);
+
+            // First few players are put into teams such that no team is empty
+            // The rest are assigned a team randomly
+            // Players are also attached as observers to their respective team
+            if(i+1 <= numTeams){
+                players[i].setTeamNo(i+1);
+                teams[i].attachObserver(players[i]);
+            }
+            else{
+                int randTeam = 1 + (int)(Math.random() * (numTeams));
+                players[i].setTeamNo(randTeam);
+                teams[randTeam-1].attachObserver(players[i]);
+            }
+
+            System.out.println("Player " + (i+1) + " was assigned to team " + players[i].getTeamNo());
 
             // The player 'visits' that tile
             map.playerVisitTile(players[i], x, y);
@@ -192,6 +227,8 @@ public class Game {
 
             // Move the player
             players[i].move(input);
+            // Notify rest of team about player's movement
+            teams[players[i].getTeamNo()-1].notifyObservers(map, players[i].getX(), players[i].getY());
 
             // Visit new position on map
             map.playerVisitTile(players[i], players[i].getX(), players[i].getY());
@@ -210,7 +247,8 @@ public class Game {
                     players[i].returnToStart();
                     break;
                 case 't':
-                    System.out.println("Player " + (i+1) + " is a winner!");
+                    System.out.println("Player " + (i+1) + " found a treasure tile. Team " +
+                            players[i].getTeamNo() + " wins!");
                     noWinners = false;
                     break;
                 case 'g':

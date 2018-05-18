@@ -7,7 +7,7 @@ package edu.um.cps2002.tile_game;
  * @author Luke Collins &amp; Stefania Damato
  *
  */
-public class Player {
+public class Player extends Observer{
 
     /**
      * Player's current row on the game map.
@@ -20,6 +20,10 @@ public class Player {
      */
     private int y;
 
+    /**
+     * Player's team number.
+     */
+    private int playerTeamNo;
 
     /**
      * Player's initial row on the game map.
@@ -67,7 +71,6 @@ public class Player {
     }
 
 
-
     /**
      * This method moves the player (updates the attributes {@link Player#x} and
      * {@link Player#y}).
@@ -105,5 +108,17 @@ public class Player {
      public void returnToStart(){
          this.x = startX;
          this.y = startY;
+     }
+
+     public void setTeamNo(int teamNo){
+         this.playerTeamNo = teamNo;
+     }
+
+     public int getTeamNo(){
+         return playerTeamNo;
+     }
+
+     public void update(Map map, int x, int y){
+        map.playerVisitTile(this, x, y);
      }
 }
