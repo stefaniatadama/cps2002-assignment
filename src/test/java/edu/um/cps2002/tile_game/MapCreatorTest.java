@@ -6,6 +6,13 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 
+/**
+ * The {@code MapCreatorTest} class tests the functionality of
+ * methods in the {@link MapCreator} class.
+ *
+ * @author Luke Collins &amp; Stefania Damato
+ *
+ */
 public class MapCreatorTest {
 
     /**

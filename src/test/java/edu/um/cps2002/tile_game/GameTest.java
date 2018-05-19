@@ -128,17 +128,17 @@ public class GameTest {
 
 
     /**
-     * Tests {@link Game#start()} with invalid user input (player number),
+     * Tests {@link Game#start()} with invalid user input (number of players),
      * then enters valid input.
      */
     @Test
-    public void testIncorrectInput(){
+    public void testInvalidNumberofPlayers(){
         /* 9 players, map size 25, then 8 players, map size 25, safe map
          * Note that in these tests, the map is already set to size 25 and
          * hazardous, so these inputs are only affecting the player number.
          * We cannot change the map size or type since these were already
          * set in the setup stage and the map is static. */
-        String input = "9\n 25\n 8\n 25\nH\n";
+        String input = "9\n 25\n 8\n 25\n5\nH\n";
 
         // Change input stream
         InputStream in = new ByteArrayInputStream(input.getBytes());
@@ -161,13 +161,42 @@ public class GameTest {
 
 
     /**
+     * Tests {@link Game#start()} with invalid user input (number of teams),
+     * then enters valid input.
+     */
+    @Test
+    public void testInvalidNumberofTeams(){
+        /* 8 players, 10 teams */
+        String input = "8\n25\n10\n8\nH\n";
+
+        // Change input stream
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        // Set output stream to array output stream
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+
+        game.start();
+
+        // Check that error message appears
+        assertThat(output.toString(),
+                CoreMatchers.containsString("Invalid number of teams. Please try again."));
+
+        // Reset Buffers
+        System.setIn(System.in);
+        System.setOut(out);
+    }
+
+
+    /**
      * Tests {@link Game#start()} by checking that every player's
      * initial tile is a grass tile.
      */
     @Test
     public void testStartPlayerOnGrassTile(){
         // 4 players, map size 25, hazardous map
-        String input = "4\n 25\nH\n";
+        String input = "4\n 25\n2\nH\n";
 
         // Change input stream
         InputStream in = new ByteArrayInputStream(input.getBytes());
@@ -196,6 +225,10 @@ public class GameTest {
      */
     @Test
     public void testGamePlayRound(){
+        // Create teams
+        Team team1 = new Team(1);
+        Team team2 = new Team(2);
+
         // Set players starting position manually to make sure move is valid
         Player player1 = new Player(size/2, size/2);
         Player player2 = new Player(size/3, size/3);
@@ -204,10 +237,14 @@ public class GameTest {
         map.setTile(size/2,size/2, 'g');
         map.setTile(size/3,size/3, 'g');
 
+        // Add players to team
+        player1.setTeamNo(1);
+        player2.setTeamNo(2);
         Player[] players = {player1, player2};
+        Team[] teams = {team1, team2};
 
         // Start a game with the 2 players and the created map
-        game2 = new Game(players, map);
+        game2 = new Game(players, teams, map);
 
         // Both players moving up
         String input = "u\n u\n";
@@ -235,6 +272,11 @@ public class GameTest {
      */
     @Test
     public void testGamePlayRoundInvalidMove(){
+        // Create teams
+        Team team1 = new Team(1);
+        Team team2 = new Team(2);
+
+
         // Set players starting position manually to make sure move is invalid
         Player player1 = new Player(0, 0);
         Player player2 = new Player(size-1, 0);
@@ -243,10 +285,14 @@ public class GameTest {
         map.setTile(0,0, 'g');
         map.setTile(size-1,0, 'g');
 
+        // Add players to team
+        player1.setTeamNo(1);
+        player2.setTeamNo(2);
         Player[] players = {player1, player2};
+        Team[] teams = {team1, team2};
 
         // Start a game with the 2 players and the created map
-        game2 = new Game(players, map);
+        game2 = new Game(players, teams, map);
 
         // First player moving left is invalid so then he moves right
         // Second player moving right is invalid so then he moves left
@@ -278,16 +324,22 @@ public class GameTest {
      */
     @Test
     public void testGamePlayRoundWater(){
+
+        // Create team
+        Team team1 = new Team(1);
+
         // Set player's starting position manually
         Player player1 = new Player(3, 3);
+        player1.setTeamNo(1);
 
         //Set player's initial position to a grass tile
         map.setTile(3,3, 'g');
 
         Player[] players = {player1};
+        Team[] teams = {team1};
 
         // Start a game with the 1 player and the created map
-        game2 = new Game(players, map);
+        game2 = new Game(players, teams, map);
 
         // Set tile to the left of the player to water
         map.setTile(3,2, 'w');
@@ -316,16 +368,22 @@ public class GameTest {
      */
     @Test
     public void testGamePlayRoundWinner(){
+
+        // Create team
+        Team team1 = new Team(1);
+
         // Set player's starting position manually
         Player player1 = new Player(3, 3);
+        player1.setTeamNo(1);
 
         //Set player's initial position to a grass tile
         map.setTile(3,3, 'g');
 
         Player[] players = {player1};
+        Team[] teams = {team1};
 
         // Start a game with the 1 player and the created map
-        game2 = new Game(players, map);
+        game2 = new Game(players, teams, map);
 
         // Set tile downwards of the player to treasure
         map.setTile(4,3, 't');
@@ -343,7 +401,7 @@ public class GameTest {
 
         game2.gameplayRound();
 
-        assertThat(output.toString(), CoreMatchers.containsString("Player 1 is a winner!"));
+        assertThat(output.toString(), CoreMatchers.containsString("Team 1 wins!"));
 
         // Reset buffers
         System.setIn(System.in);
@@ -358,9 +416,12 @@ public class GameTest {
     public void testMoveAllowed(){
         //Player starts game at upper left corner
         Player player1 = new Player(0,0);
+        Team team1 = new Team(1);
+        player1.setTeamNo(1);
         Player[] players = {player1};
+        Team[] teams = {team1};
 
-        game2 = new Game(players, map);
+        game2 = new Game(players, teams, map);
 
         boolean allowed_down = game2.playerMoveAllowed(player1, 'd');
         boolean allowed_left = game2.playerMoveAllowed(player1, 'l');

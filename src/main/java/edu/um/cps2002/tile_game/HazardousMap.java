@@ -1,7 +1,5 @@
 package edu.um.cps2002.tile_game;
 
-import java.util.Arrays;
-
 /**
  * The {@code HazardousMap} class is a {@link Map} object, with
  * the implementation of the method {@link HazardousMap#generate()} which randomly
