@@ -29,13 +29,18 @@ public class Game {
      */
     private Player[] players;
 
+    /**
+     * Array of {@link Team} objects.
+     */
+    private Team[] teams;
+
 
     /**
-     * This {@link GameMap} object contains a two-dimensional array of characters
-     * storing the tiles of the game (characters representing one of water, grass
-     * or treasure).
+     * This {@link Map} object contains a two-dimensional array of {@link Tile}s
+     * storing the tiles of the game (representing one of water, grass or
+     * treasure).
      */
-    private GameMap map;
+    private Map map;
 
 
     /**
@@ -51,22 +56,17 @@ public class Game {
 
 
     /**
-     * A constructor for creating {@link Game} instances from a pre-existing map.
-     * Used mainly for testing purposes.
+     * A constructor for creating {@link Game} instances from a pre-existing map,
+     * given the players and teams. Used mainly for testing purposes.
      *
-     * @param numPlayers Number of players in the game.
+     * @param players The players to be used in the game.
+     * @param teams The teams to be used in the game.
      * @param map A pre-existing {@link Map} object for the game to be played in.
-     * @see Player
      */
-    Game(int numPlayers, GameMap map){
-
-        // Assign the game map to the given map and generate player objects
+    Game(Player[] players, Team[] teams, Map map){
         this.map = map;
-        this.players = new Player[numPlayers];
-
-        // Initialise each player object
-        for(int i = 0; i < numPlayers; i++)
-            this.players[i] = new Player();
+        this.teams = teams;
+        this.players = players;
     }
 
 
@@ -77,19 +77,17 @@ public class Game {
      *     First the user is asked for the number of players (2-8) and the size
      *     of the map (5-50 or 8-50). The correctness of the user input is checked
      *     by the {@code boolean} method {@link Game#setPlayersMap(int, int)}.
-     *     Then a corresponding {@link GameMap} object is created (assigned to
+     *     The user is also asked whether a safe or a hazardous map is to be used.
+     *     Then a corresponding {@link Map} object is created (assigned to
      *     {@link Game#map}) and a {@link Player} object is generated for each
      *     player (stored in {@link Game#players}). Finally each player is assigned
      *     a starting position on the map (which is known only to the player,
      *     stored in {@link Player#x} and {@link Player#y}).
      * </p>
-     *
-     * @see Player
-     * @see GameMap#generate()
      */
     public void start(){
         sc = new Scanner(System.in);
-        int numPlayers = 0, mapSize = 0;
+        int numPlayers = 0, mapSize = 0, numTeams = 0;
         boolean valid = false, firstLoop = true;
         String mapType = "";
 
@@ -109,10 +107,19 @@ public class Game {
             firstLoop = false;
         }
 
+        System.out.print("Enter number of teams: ");
+        numTeams = sc.nextInt();
+        while(numTeams > numPlayers || numTeams < 1){
+            System.out.println("Invalid number of teams. Please try again.");
+            System.out.print("Enter number of teams: ");
+            numTeams = sc.nextInt();
+        }
+
+        sc.nextLine();
         // Ask user for map type
         while(!mapType.equals("S") && !mapType.equals("H")){
             System.out.print("Enter map type (S/H): ");
-            mapType = sc.nextLine();
+            mapType = sc.next();
         }
 
         // Initialise map creator
@@ -122,33 +129,57 @@ public class Game {
         map = mc.createMap(mapType, mapSize);
         map.generate();
 
+        // Initialise Teams
+        teams = new Team[numTeams];
+
+        // Setting team numbers starting from 1
+        for(int i = 0; i < numTeams; i++){
+            teams[i] = new Team(i+1);
+        }
+
         // Initialise Players
         players = new Player[numPlayers];
 
         for(int i = 0; i < numPlayers; i++) {
-            players[i] = new Player();
-
             // Give player a start position, grass tile
-            int x = (int) (Math.random() * mapSize);
-            int y = (int) (Math.random() * mapSize);
+            int x = (int) (Math.random() * (mapSize-1));
+            int y = (int) (Math.random() * (mapSize-1));
 
             while (map.getTileType(x, y) != 'g') {
-                x = (int) (Math.random() * mapSize);
-                y = (int) (Math.random() * mapSize);
+                x = (int) (Math.random() * (mapSize-1));
+                y = (int) (Math.random() * (mapSize-1));
             }
 
-            // Assign the starting position to the player
-            players[i].setPlayerMapStart(mapSize, x, y);
+            // Initialise the player at position (x,y)
+            players[i] = new Player(x, y);
+
+            // First few players are put into teams such that no team is empty
+            // The rest are assigned a team randomly
+            // Players are also attached as observers to their respective team
+            if(i+1 <= numTeams){
+                players[i].setTeamNo(i+1);
+                teams[i].attachObserver(players[i]);
+            }
+            else{
+                int randTeam = 1 + (int)(Math.random() * (numTeams));
+                players[i].setTeamNo(randTeam);
+                teams[randTeam-1].attachObserver(players[i]);
+            }
+
+            System.out.println("Player " + (i+1) + " was assigned to team " + players[i].getTeamNo());
+
+            // The player 'visits' that tile
+            map.playerVisitTile(players[i], x, y);
         }
     }
 
 
     /**
      * A simple getter for the {@link Game#map} attribute.
-     * @return map - The {@link GameMap} object storing the tiles on which the game
+     * @return map - The {@link Map} object storing the tiles on which the game
      * is played.
      */
-    public GameMap getMap(){
+    public Map getMap(){
         return map;
     }
 
@@ -162,12 +193,11 @@ public class Game {
      *     their current position updated (i.e. the player's {@link Player#x} and
      *     {@link Player#y} attributes via {@link Player#move(char)}), so long
      *     as the move is allowed (determined by the boolean
-     *     {@link Player#moveAllowed(char)}). After this process is carried out
-     *     for each player, their corresponding maps ({@link Player#playerMapCopy})
-     *     are updated. If any player lands on a water tile, then they are sent
-     *     back to their initial position (via {@link Player#returnToStart()}),
-     *     whereas if any player lands on the treasure tile, they are declared
-     *     winners and {@code noWinners} is set to false.
+     *     {@link Game#playerMoveAllowed(Player, char)}). If any player lands on a
+     *     water tile, then they are sent back to their initial position
+     *     (via {@link Player#returnToStart()}), whereas if any player lands on the
+     *     treasure tile, they are declared winners and {@code noWinners} is set to
+     *     false.
      * </p>
      *
      * @return noWinner - A {@code boolean} variable which is {@code true} when none
@@ -191,7 +221,7 @@ public class Game {
             System.out.print("Player " + (i+1) + "'s move. Enter (U)p, (D)own, (L)eft or (R)ight: ");
             char input = Character.toLowerCase(sc.next().trim().charAt(0));
 
-            while(!players[i].moveAllowed(input)) {
+            while(!playerMoveAllowed(players[i], input)) {
                 System.out.print("Invalid move. ");
                 System.out.print("Player " + (i+1) + "'s move. Please enter (U)p, (D)own, (L)eft or (R)ight: ");
                 input = Character.toLowerCase(sc.next().trim().charAt(0));
@@ -199,6 +229,12 @@ public class Game {
 
             // Move the player
             players[i].move(input);
+
+            // Notify rest of team about player's movement
+            teams[players[i].getTeamNo()-1].notifyObservers(map, players[i].getX(), players[i].getY());
+
+            // Visit new position on map
+            map.playerVisitTile(players[i], players[i].getX(), players[i].getY());
         }
 
         // For each player
@@ -208,16 +244,14 @@ public class Game {
             int y = players[i].getY();
             char currentPosition = map.getTileType(x,y);
 
-            // Update player's map
-            players[i].updateMap(x, y, currentPosition);
-
             // If water, move back to start, if treasure, declare winner
             switch(currentPosition){
                 case 'w':
                     players[i].returnToStart();
                     break;
                 case 't':
-                    System.out.println("Player " + (i+1) + " is a winner!");
+                    System.out.println("Player " + (i+1) + " found a treasure tile. Team " +
+                            players[i].getTeamNo() + " wins!");
                     noWinners = false;
                     break;
                 case 'g':
@@ -270,7 +304,7 @@ public class Game {
 
 
     /**
-     * Generates an HTML file for each player using the {@link Player#generateHTML(int)}
+     * Generates an HTML file for each player using the {@link Map#generateHTML(Player, int)}
      * method.
      * @throws IOException Should the writing of HTML files fail.
      */
@@ -285,8 +319,35 @@ public class Game {
             fw = new FileWriter("map_player_" + (i+1) + ".html");
             bw = new BufferedWriter(fw);
 
-            bw.write(players[i].generateHTML(i + 1));
+            bw.write(map.generateHTML(players[i],i + 1));
             bw.close();
+        }
+    }
+
+    /**
+     * This method examines the player's current position and determines whether
+     * or not it is possible to move in a certain direction, ensuring that the
+     * player does not move out of the map.
+     *
+     * @param p The player to make the move.
+     * @param move A direction character, one of {@code u} (up), {@code d} (down),
+     *             {@code l} (left) or {@code r} (right).
+     *
+     * @return {@code true} if the move is admissible, {@code false} otherwise.
+     */
+    boolean playerMoveAllowed(Player p, char move){
+         // Check if player is on the edges of the map
+        switch(move){
+            case 'u':
+                return p.getX() != 0;
+            case 'd':
+                return p.getX() != map.getSize() - 1;
+            case 'l':
+                return p.getY() != 0;
+            case 'r':
+                return p.getY() != map.getSize() - 1;
+            default:
+                return false;
         }
     }
 }
