@@ -7,7 +7,7 @@ package edu.um.cps2002.tile_game;
  * @author Luke Collins &amp; Stefania Damato
  *
  */
-public class Player extends Observer{
+public class Player extends Observer {
 
     /**
      * Player's current row on the game map.
@@ -110,14 +110,30 @@ public class Player extends Observer{
          this.y = startY;
      }
 
+    /**
+     * Simple setter, assigns player's team number
+     * @param teamNo Team number
+     */
      public void setTeamNo(int teamNo){
          this.playerTeamNo = teamNo;
      }
 
+    /**
+     * Simple getter, returns player's team number
+     * @return The player's team number
+     */
      public int getTeamNo(){
          return playerTeamNo;
      }
 
+    /**
+     * Updater function for observer design pattern.
+     * This function updates the map by marking the tile at [x][y] as 'visited'
+     * by this player.
+     * @param map The {@link Map} instance in use in the game to be updated
+     * @param x The players' x-coordinate
+     * @param y The players' y-coordinate
+     */
      public void update(Map map, int x, int y){
         map.playerVisitTile(this, x, y);
      }

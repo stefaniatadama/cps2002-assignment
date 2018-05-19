@@ -1,6 +1,5 @@
 package edu.um.cps2002.tile_game;
 
-import java.util.Arrays;
 
 /**
  * The {@code SafeMap} class is a {@link Map} object, with

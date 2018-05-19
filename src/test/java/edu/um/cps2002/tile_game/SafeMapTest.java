@@ -7,6 +7,13 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
+/**
+ * The {@code SafeMapTest} class tests the functionality of
+ * methods in the {@link SafeMap} class.
+ *
+ * @author Luke Collins &amp; Stefania Damato
+ *
+ */
 public class SafeMapTest {
 
     /**

@@ -7,6 +7,13 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
+/**
+ * The {@code HazardousMapTest} class tests the functionality of
+ * methods in the {@link HazardousMap} class.
+ *
+ * @author Luke Collins &amp; Stefania Damato
+ *
+ */
 public class HazardousMapTest {
 
 
@@ -72,14 +79,15 @@ public class HazardousMapTest {
         }
 
         double ratio = (no_of_water_tiles*100)/(size*size);
-        System.out.println(ratio);
+
         // We allow 24 due to the int conversion when calculating
         // the number of water tiles in HazardousMap
         assertTrue(24 <= ratio && ratio <= 35);
     }
 
     /**
-     * aghmel xi comment haw
+     * Tests {@link Map#htmlMapTable(Player)} by generating an HTML
+     * table for a specific map instance.
      */
     @Test
     public void testHTMLTable(){

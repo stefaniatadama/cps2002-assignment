@@ -57,13 +57,15 @@ public class Game {
 
     /**
      * A constructor for creating {@link Game} instances from a pre-existing map,
-     * given the players. Used mainly for testing purposes.
+     * given the players and teams. Used mainly for testing purposes.
      *
      * @param players The players to be used in the game.
+     * @param teams The teams to be used in the game.
      * @param map A pre-existing {@link Map} object for the game to be played in.
      */
-    Game(Player[] players, Map map){
+    Game(Player[] players, Team[] teams, Map map){
         this.map = map;
+        this.teams = teams;
         this.players = players;
     }
 
@@ -227,6 +229,7 @@ public class Game {
 
             // Move the player
             players[i].move(input);
+
             // Notify rest of team about player's movement
             teams[players[i].getTeamNo()-1].notifyObservers(map, players[i].getX(), players[i].getY());
 

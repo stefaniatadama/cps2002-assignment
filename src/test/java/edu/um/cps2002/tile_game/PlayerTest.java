@@ -48,9 +48,8 @@ public class PlayerTest {
     @Before
     public void setup() {
         player = new Player(0,0);
-
         map = new SafeMap(size);
-
+        map.generate();
         game = new Game();
     }
 
@@ -75,6 +74,20 @@ public class PlayerTest {
         player.move('a');
     }
 
+    /**
+     * Tests {@link Player#update(Map, int, int)} with a specific
+     * map instance.
+     */
+    @Test
+    public void testUpdate(){
+        // Check whether visited before/after
+        boolean hasVisitedBefore = map.tiles[2][2].hasVisited(player);
+        player.update(map, 2, 2);
+        boolean hasVisitedAfter = map.tiles[2][2].hasVisited(player);
+
+        assertEquals(false, hasVisitedBefore);
+        assertEquals(true, hasVisitedAfter);
+    }
 
     /**
      * This method frees memory after all tests are completed.
