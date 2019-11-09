@@ -1,7 +1,7 @@
 # CPS2002: Software Engineering - Assignment
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Documentation: javadocs](https://img.shields.io/badge/documentation-javadocs-orange.svg)](https://gitcdn.link/repo/stefaniatadama/cps2002-assignment/master/javadocs/index.html)
-[![Report: pdf](https://img.shields.io/badge/report-pdf-red.svg)](https://gitcdn.link/repo/stefaniatadama/cps2002-assignment/master/report.pdf)
+[![Report: pdf](https://img.shields.io/badge/report-pdf-red.svg)](https://stefaniatadama.com/cps2002-assignment/report.pdf)
 
 This game is a programming assignment for [CPS2002: Software Engineering](https://www.um.edu.mt/courses/studyunit/CPS2002), a course forming part of our B.Sc. in Mathematics and Computer Science.
 ![Game Preview](https://i.imgur.com/8VwMS9v.png)
